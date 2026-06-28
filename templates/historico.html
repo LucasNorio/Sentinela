@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Sentinela | Histórico</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../static/css/style.css" />
+  </head>
+
+  <body class="dashboard-page" data-page="protected">
+    <div class="app-layout">
+      <aside class="sidebar">
+        <div class="sidebar-brand">
+          <img
+            src="../static/images/logo/SENTINELALOGOtransparente.png"
+            alt="Logo do sistema Sentinela"
+          />
+
+          <div>
+            <strong>Sentinela</strong>
+            <span>Monitoramento RFID</span>
+          </div>
+        </div>
+
+        <nav class="sidebar-nav">
+          <a href="/home">Home</a>
+          <a href="/mapa">Mapa</a>
+          <a href="/gestao-academica">Gestão Acadêmica</a>
+          <a href="/cadastro-alunos">Cadastro de Alunos</a>
+          <a href="/cadastro-professores">Cadastro de Professores</a>
+          <a href="/administracao">Administração</a>
+          <a href="/sobre">Sobre</a>
+        </nav>
+
+        <div class="sidebar-footer">
+          <span>SENAI Botucatu</span>
+          <small>Versão 0.1.1</small>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <div class="page-header">
+          <div>
+            <span class="page-label">Histórico</span>
+            <h1>Histórico de Movimentações</h1>
+            <p>
+              Consulte os registros RFID reais de entrada, saída, movimentação e
+              alertas capturados pelos leitores instalados nos ambientes
+              monitorados.
+            </p>
+          </div>
+
+          <button id="btnAtualizarHistorico" class="btn btn-danger fw-bold">
+            Atualizar histórico
+          </button>
+        </div>
+
+        <section class="row g-4 mb-4">
+          <div class="col-12 col-md-3">
+            <article class="stat-card">
+              <span>Total de registros</span>
+              <strong id="totalRegistrosHistorico">0</strong>
+              <small>leituras RFID</small>
+            </article>
+          </div>
+
+          <div class="col-12 col-md-3">
+            <article class="stat-card">
+              <span>Entradas</span>
+              <strong id="totalEntradasHistorico">0</strong>
+              <small>registros de entrada</small>
+            </article>
+          </div>
+
+          <div class="col-12 col-md-3">
+            <article class="stat-card">
+              <span>Saídas</span>
+              <strong id="totalSaidasHistorico">0</strong>
+              <small>registros de saída</small>
+            </article>
+          </div>
+
+          <div class="col-12 col-md-3">
+            <article class="stat-card">
+              <span>Alertas</span>
+              <strong id="totalAlertasHistorico">0</strong>
+              <small>leituras com inconsistência</small>
+            </article>
+          </div>
+        </section>
+
+        <section class="content-card">
+          <div class="section-header">
+            <div>
+              <span class="page-label">Registros RFID</span>
+              <h2>Movimentações registradas</h2>
+            </div>
+
+            <span id="contadorRegistros" class="counter-badge">
+              0 registros
+            </span>
+          </div>
+
+          <div class="row g-3 mb-3">
+            <div class="col-12 col-lg-8">
+              <input
+                id="buscaRegistro"
+                type="search"
+                class="form-control"
+                placeholder="Buscar por aluno, tag, leitor, ambiente ou observação..."
+              />
+            </div>
+
+            <div class="col-12 col-lg-4">
+              <select id="filtroTipoRegistro" class="form-select">
+                <option value="Todos">Todos</option>
+                <option value="Entrada">Entradas</option>
+                <option value="Saída">Saídas</option>
+                <option value="Movimentação">Movimentações</option>
+                <option value="Alerta">Alertas</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table align-middle dashboard-table">
+              <thead>
+                <tr>
+                  <th>Data/Hora</th>
+                  <th>Aluno</th>
+                  <th>Tag</th>
+                  <th>Leitor</th>
+                  <th>Ambiente</th>
+                  <th>Tipo</th>
+                  <th>Observação</th>
+                </tr>
+              </thead>
+
+              <tbody id="tabelaRegistros"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="../static/js/auth.js"></script>
+    <script src="../static/js/historico.js"></script>
+  </body>
+</html>

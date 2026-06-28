@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Sentinela | Cadastro de Alunos</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../static/css/style.css" />
+  </head>
+
+  <body class="dashboard-page" data-page="protected">
+    <div class="app-layout">
+      <aside class="sidebar">
+        <div class="sidebar-brand">
+          <img
+            src="../static/images/logo/SENTINELALOGOtransparente.png"
+            alt="Logo do sistema Sentinela"
+          />
+
+          <div>
+            <strong>Sentinela</strong>
+            <span>Monitoramento RFID</span>
+          </div>
+        </div>
+
+        <nav class="sidebar-nav">
+          <a href="home.html">Home</a>
+          <a href="/mapa">Mapa</a>
+          <a href="/gestao-academica">Gestão Acadêmica</a>
+          <a class="active" href="/cadastro-alunos">Cadastro de Alunos</a>
+          <a href="/cadastro-professores">Cadastro de Professores</a>
+          <a href="/administracao">Administração</a>
+          <a href="/sobre">Sobre</a>
+        </nav>
+
+        <div class="sidebar-footer">
+          <span>SENAI Botucatu</span>
+          <small>Versão 0.1.1</small>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div>
+            <span class="page-label">Cadastro</span>
+
+            <h1>Cadastro de Alunos</h1>
+
+            <p>
+              Gerencie os alunos da unidade e vincule cada estudante a uma tag
+              RFID.
+            </p>
+          </div>
+
+          <div class="user-panel">
+            <div class="user-avatar">A</div>
+
+            <div>
+              <strong id="nomeUsuario">Administrador</strong>
+              <span id="cargoUsuario">Secretaria / Coordenação</span>
+            </div>
+
+            <button id="btnSair" class="btn btn-outline-danger btn-sm">
+              Sair
+            </button>
+          </div>
+        </header>
+
+        <section class="row g-4">
+          <div class="col-12 col-xl-4">
+            <article class="content-card h-100">
+              <div class="section-header">
+                <div>
+                  <span class="page-label">Novo registro</span>
+                  <h2>Dados do aluno</h2>
+                </div>
+              </div>
+
+              <form id="formAluno" class="sentinela-form">
+                <input type="hidden" id="alunoId" />
+
+                <div class="mb-3">
+                  <label for="nomeAluno" class="form-label fw-semibold">
+                    Nome completo
+                  </label>
+
+                  <input
+                    id="nomeAluno"
+                    type="text"
+                    class="form-control"
+                    placeholder="Ex: Lucas Henrique"
+                    required
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label for="matriculaAluno" class="form-label fw-semibold">
+                    Matrícula
+                  </label>
+
+                  <input
+                    id="matriculaAluno"
+                    type="text"
+                    class="form-control"
+                    placeholder="Ex: 2026001"
+                    required
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label for="turmaAluno" class="form-label fw-semibold">
+                    Turma
+                  </label>
+
+                  <select id="turmaAluno" class="form-select" required>
+                    <option value="">Carregando turmas...</option>
+                  </select>
+                </div>
+
+                <div class="mb-3">
+                  <label for="tagAluno" class="form-label fw-semibold">
+                    Tag RFID
+                  </label>
+
+                  <input
+                    id="tagAluno"
+                    type="text"
+                    class="form-control"
+                    placeholder="Ex: RFID-005E"
+                    required
+                  />
+                </div>
+
+                <div class="mb-4">
+                  <label for="statusAluno" class="form-label fw-semibold">
+                    Status
+                  </label>
+
+                  <select id="statusAluno" class="form-select" required>
+                    <option value="Ativo">Ativo</option>
+                    <option value="Inativo">Inativo</option>
+                  </select>
+                </div>
+
+                <div class="d-grid gap-2">
+                  <button class="btn btn-danger fw-bold" type="submit">
+                    Salvar aluno
+                  </button>
+
+                  <button
+                    id="btnLimparAluno"
+                    class="btn btn-outline-secondary"
+                    type="button"
+                  >
+                    Limpar formulário
+                  </button>
+                </div>
+              </form>
+            </article>
+          </div>
+
+          <div class="col-12 col-xl-8">
+            <article class="content-card h-100">
+              <div class="section-header">
+                <div>
+                  <span class="page-label">Alunos</span>
+                  <h2>Lista de alunos cadastrados</h2>
+                </div>
+
+                <span id="contadorAlunos" class="counter-badge">
+                  0 alunos
+                </span>
+              </div>
+
+              <div class="mb-3">
+                <input
+                  id="buscaAluno"
+                  type="search"
+                  class="form-control"
+                  placeholder="Buscar por nome, matrícula, turma ou tag RFID..."
+                />
+              </div>
+
+              <div class="table-responsive">
+                <table class="table align-middle dashboard-table">
+                  <thead>
+                    <tr>
+                      <th>Aluno</th>
+                      <th>Matrícula</th>
+                      <th>Turma</th>
+                      <th>Tag RFID</th>
+                      <th>Status</th>
+                      <th>Ações</th>
+                    </tr>
+                  </thead>
+
+                  <tbody id="tabelaAlunos"></tbody>
+                </table>
+              </div>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="../static/js/auth.js"></script>
+    <script src="../static/js/alunos.js"></script>
+  </body>
+</html>

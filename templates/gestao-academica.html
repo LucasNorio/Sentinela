@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Sentinela | Gestão Acadêmica</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../static/css/style.css" />
+  </head>
+
+  <body class="dashboard-page" data-page="protected">
+    <div class="app-layout">
+      <aside class="sidebar">
+        <div class="sidebar-brand">
+          <img
+            src="../static/images/logo/SENTINELALOGOtransparente.png"
+            alt="Logo do sistema Sentinela"
+          />
+
+          <div>
+            <strong>Sentinela</strong>
+            <span>Monitoramento RFID</span>
+          </div>
+        </div>
+
+        <nav class="sidebar-nav">
+          <a href="/home">Home</a>
+          <a href="/mapa">Mapa</a>
+          <a class="active" href="/gestao-academica">Gestão Acadêmica</a>
+          <a href="/cadastro-alunos">Cadastro de Alunos</a>
+          <a href="/cadastro-professores">Cadastro de Professores</a>
+          <a href="/administracao">Administração</a>
+          <a href="/sobre">Sobre</a>
+        </nav>
+
+        <div class="sidebar-footer">
+          <span>SENAI Botucatu</span>
+          <small>Versão 0.1.1</small>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div>
+            <span class="page-label">Administração</span>
+
+            <h1>Gestão Acadêmica</h1>
+
+            <p>
+              Gerencie cursos, turmas, períodos letivos e status acadêmicos do
+              sistema.
+            </p>
+          </div>
+
+          <div class="user-panel">
+            <div id="avatarUsuario" class="user-avatar">A</div>
+
+            <div>
+              <strong id="nomeUsuario">Administrador</strong>
+              <span id="cargoUsuario">Secretaria / Coordenação</span>
+            </div>
+
+            <button id="btnSair" class="btn btn-outline-danger btn-sm">
+              Sair
+            </button>
+          </div>
+        </header>
+
+        <section class="row g-4 mb-4">
+          <div class="col-12 col-xl-4">
+            <article class="content-card h-100">
+              <div class="section-header">
+                <div>
+                  <span class="page-label">Curso</span>
+                  <h2>Dados do curso</h2>
+                </div>
+              </div>
+
+              <form id="formCurso" class="sentinela-form">
+                <input type="hidden" id="cursoId" />
+
+                <div class="mb-3">
+                  <label for="nomeCurso" class="form-label fw-semibold">
+                    Nome do curso
+                  </label>
+
+                  <input
+                    id="nomeCurso"
+                    type="text"
+                    class="form-control"
+                    placeholder="Ex: Desenvolvimento de Sistemas"
+                    required
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label for="codigoCurso" class="form-label fw-semibold">
+                    Código
+                  </label>
+
+                  <input
+                    id="codigoCurso"
+                    type="text"
+                    class="form-control"
+                    placeholder="Ex: DS"
+                    required
+                  />
+                </div>
+
+                <div class="mb-4">
+                  <label for="statusCurso" class="form-label fw-semibold">
+                    Status
+                  </label>
+
+                  <select id="statusCurso" class="form-select" required>
+                    <option value="Ativo">Ativo</option>
+                    <option value="Inativo">Inativo</option>
+                  </select>
+                </div>
+
+                <div class="d-grid gap-2">
+                  <button class="btn btn-danger fw-bold" type="submit">
+                    Salvar curso
+                  </button>
+
+                  <button
+                    id="btnLimparCurso"
+                    class="btn btn-outline-secondary"
+                    type="button"
+                  >
+                    Limpar formulário
+                  </button>
+                </div>
+              </form>
+            </article>
+          </div>
+
+          <div class="col-12 col-xl-8">
+            <article class="content-card h-100">
+              <div class="section-header">
+                <div>
+                  <span class="page-label">Cursos</span>
+                  <h2>Lista de cursos cadastrados</h2>
+                </div>
+
+                <span id="contadorCursos" class="counter-badge">
+                  0 cursos
+                </span>
+              </div>
+
+              <div class="row g-3 mb-3">
+                <div class="col-12 col-lg-8">
+                  <input
+                    id="buscaCurso"
+                    type="search"
+                    class="form-control"
+                    placeholder="Buscar por nome ou código..."
+                  />
+                </div>
+
+                <div class="col-12 col-lg-4">
+                  <select id="filtroStatusCurso" class="form-select">
+                    <option value="Todos">Todos</option>
+                    <option value="Ativo">Ativos</option>
+                    <option value="Inativo">Inativos</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="table-responsive">
+                <table class="table align-middle dashboard-table">
+                  <thead>
+                    <tr>
+                      <th>Curso</th>
+                      <th>Código</th>
+                      <th>Status</th>
+                      <th>Ações</th>
+                    </tr>
+                  </thead>
+
+                  <tbody id="tabelaCursos"></tbody>
+                </table>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="row g-4">
+          <div class="col-12 col-xl-4">
+            <article class="content-card h-100">
+              <div class="section-header">
+                <div>
+                  <span class="page-label">Turma</span>
+                  <h2>Dados da turma</h2>
+                </div>
+              </div>
+
+              <form id="formTurma" class="sentinela-form">
+                <input type="hidden" id="turmaId" />
+
+                <div class="mb-3">
+                  <label for="nomeTurma" class="form-label fw-semibold">
+                    Nome da turma
+                  </label>
+
+                  <input
+                    id="nomeTurma"
+                    type="text"
+                    class="form-control"
+                    placeholder="Ex: DS-2026-A"
+                    required
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label for="cursoTurma" class="form-label fw-semibold">
+                    Curso
+                  </label>
+
+                  <select id="cursoTurma" class="form-select" required>
+                    <option value="">Carregando cursos...</option>
+                  </select>
+                </div>
+
+                <div class="mb-3">
+                  <label for="periodoTurma" class="form-label fw-semibold">
+                    Período
+                  </label>
+
+                  <select id="periodoTurma" class="form-select" required>
+                    <option value="">Selecione um período</option>
+                    <option value="Manhã">Manhã</option>
+                    <option value="Tarde">Tarde</option>
+                    <option value="Noite">Noite</option>
+                    <option value="Integral">Integral</option>
+                  </select>
+                </div>
+
+                <div class="row g-3">
+                  <div class="col-12 col-lg-6">
+                    <label for="anoLetivoTurma" class="form-label fw-semibold">
+                      Ano letivo
+                    </label>
+
+                    <input
+                      id="anoLetivoTurma"
+                      type="number"
+                      class="form-control"
+                      placeholder="Ex: 2026"
+                      min="2000"
+                      max="2100"
+                      required
+                    />
+                  </div>
+
+                  <div class="col-12 col-lg-6">
+                    <label for="semestreTurma" class="form-label fw-semibold">
+                      Semestre
+                    </label>
+
+                    <select id="semestreTurma" class="form-select" required>
+                      <option value="">Selecione</option>
+                      <option value="1">1º semestre</option>
+                      <option value="2">2º semestre</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="mt-3 mb-4">
+                  <label for="statusTurma" class="form-label fw-semibold">
+                    Status
+                  </label>
+
+                  <select id="statusTurma" class="form-select" required>
+                    <option value="Ativa">Ativa</option>
+                    <option value="Inativa">Inativa</option>
+                    <option value="Encerrada">Encerrada</option>
+                  </select>
+                </div>
+
+                <div class="d-grid gap-2">
+                  <button class="btn btn-danger fw-bold" type="submit">
+                    Salvar turma
+                  </button>
+
+                  <button
+                    id="btnLimparTurma"
+                    class="btn btn-outline-secondary"
+                    type="button"
+                  >
+                    Limpar formulário
+                  </button>
+                </div>
+              </form>
+            </article>
+          </div>
+
+          <div class="col-12 col-xl-8">
+            <article class="content-card h-100">
+              <div class="section-header">
+                <div>
+                  <span class="page-label">Turmas</span>
+                  <h2>Lista de turmas cadastradas</h2>
+                </div>
+
+                <span id="contadorTurmas" class="counter-badge">
+                  0 turmas
+                </span>
+              </div>
+
+              <div class="row g-3 mb-3">
+                <div class="col-12 col-lg-8">
+                  <input
+                    id="buscaTurma"
+                    type="search"
+                    class="form-control"
+                    placeholder="Buscar por turma, curso, período ou ano..."
+                  />
+                </div>
+
+                <div class="col-12 col-lg-4">
+                  <select id="filtroStatusTurma" class="form-select">
+                    <option value="Todos">Todas</option>
+                    <option value="Ativa">Ativas</option>
+                    <option value="Inativa">Inativas</option>
+                    <option value="Encerrada">Encerradas</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="table-responsive">
+                <table class="table align-middle dashboard-table">
+                  <thead>
+                    <tr>
+                      <th>Turma</th>
+                      <th>Curso</th>
+                      <th>Período</th>
+                      <th>Ano/Semestre</th>
+                      <th>Status</th>
+                      <th>Ações</th>
+                    </tr>
+                  </thead>
+
+                  <tbody id="tabelaTurmas"></tbody>
+                </table>
+              </div>
+            </article>
+          </div>
+        </section>
+        <section class="row g-4 mt-1">
+          <div class="col-12 col-xl-4">
+            <article class="content-card h-100">
+              <div class="section-header">
+                <div>
+                  <span class="page-label">Vínculo</span>
+                  <h2>Professor e turma</h2>
+                </div>
+              </div>
+
+              <form id="formProfessorTurma" class="sentinela-form">
+                <input type="hidden" id="professorTurmaId" />
+
+                <div class="mb-3">
+                  <label for="professorVinculo" class="form-label fw-semibold">
+                    Professor
+                  </label>
+
+                  <select id="professorVinculo" class="form-select" required>
+                    <option value="">Carregando professores...</option>
+                  </select>
+                </div>
+
+                <div class="mb-3">
+                  <label for="turmaVinculo" class="form-label fw-semibold">
+                    Turma
+                  </label>
+
+                  <select id="turmaVinculo" class="form-select" required>
+                    <option value="">Carregando turmas...</option>
+                  </select>
+                </div>
+
+                <div class="mb-3">
+                  <label for="funcaoVinculo" class="form-label fw-semibold">
+                    Função
+                  </label>
+
+                  <select id="funcaoVinculo" class="form-select" required>
+                    <option value="Professor">Professor</option>
+                    <option value="Responsável">Responsável</option>
+                    <option value="Auxiliar">Auxiliar</option>
+                  </select>
+                </div>
+
+                <div class="mb-4">
+                  <label for="statusVinculo" class="form-label fw-semibold">
+                    Status
+                  </label>
+
+                  <select id="statusVinculo" class="form-select" required>
+                    <option value="Ativo">Ativo</option>
+                    <option value="Inativo">Inativo</option>
+                  </select>
+                </div>
+
+                <div class="d-grid gap-2">
+                  <button class="btn btn-danger fw-bold" type="submit">
+                    Salvar vínculo
+                  </button>
+
+                  <button
+                    id="btnLimparVinculo"
+                    class="btn btn-outline-secondary"
+                    type="button"
+                  >
+                    Limpar formulário
+                  </button>
+                </div>
+              </form>
+            </article>
+          </div>
+
+          <div class="col-12 col-xl-8">
+            <article class="content-card h-100">
+              <div class="section-header">
+                <div>
+                  <span class="page-label">Professores e turmas</span>
+                  <h2>Vínculos cadastrados</h2>
+                </div>
+
+                <span id="contadorVinculos" class="counter-badge">
+                  0 vínculos
+                </span>
+              </div>
+
+              <div class="row g-3 mb-3">
+                <div class="col-12 col-lg-8">
+                  <input
+                    id="buscaVinculo"
+                    type="search"
+                    class="form-control"
+                    placeholder="Buscar por professor, turma, curso ou função..."
+                  />
+                </div>
+
+                <div class="col-12 col-lg-4">
+                  <select id="filtroStatusVinculo" class="form-select">
+                    <option value="Todos">Todos</option>
+                    <option value="Ativo">Ativos</option>
+                    <option value="Inativo">Inativos</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="table-responsive">
+                <table class="table align-middle dashboard-table">
+                  <thead>
+                    <tr>
+                      <th>Professor</th>
+                      <th>Turma</th>
+                      <th>Curso</th>
+                      <th>Função</th>
+                      <th>Status</th>
+                      <th>Ações</th>
+                    </tr>
+                  </thead>
+
+                  <tbody id="tabelaVinculos"></tbody>
+                </table>
+              </div>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="../static/js/auth.js"></script>
+    <script src="../static/js/academico.js"></script>
+  </body>
+</html>

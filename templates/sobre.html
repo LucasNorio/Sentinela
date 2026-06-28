@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Sentinela | Sobre o Sistema</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../static/css/style.css" />
+  </head>
+
+  <body class="dashboard-page" data-page="protected">
+    <div class="app-layout">
+      <aside class="sidebar">
+        <div class="sidebar-brand">
+          <img
+            src="../static/images/logo/SENTINELALOGOtransparente.png"
+            alt="Logo do sistema Sentinela"
+          />
+
+          <div>
+            <strong>Sentinela</strong>
+            <span>Monitoramento RFID</span>
+          </div>
+        </div>
+
+        <nav class="sidebar-nav">
+          <a href="/home">Home</a>
+          <a href="/mapa">Mapa</a>
+          <a href="/gestao-academica">Gestão Acadêmica</a>
+          <a href="/cadastro-alunos">Cadastro de Alunos</a>
+          <a href="/cadastro-professores">Cadastro de Professores</a>
+          <a href="/administracao">Administração</a>
+          <a class="active" href="/sobre">Sobre</a>
+        </nav>
+
+        <div class="sidebar-footer">
+          <span>SENAI Botucatu</span>
+          <small>Versão 0.1.1</small>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <div class="page-header">
+          <div>
+            <span class="page-label">Apresentação</span>
+
+            <h1>Sobre o Sistema</h1>
+
+            <p>
+              Conheça a proposta, os objetivos e o funcionamento da versão 0.1.1
+              do projeto Sentinela.
+            </p>
+          </div>
+        </div>
+
+        <section class="about-hero content-card mb-4">
+          <div>
+            <span class="page-label">Projeto TCC</span>
+
+            <h2>Sentinela</h2>
+
+            <p>
+              Sistema de chamada automática e monitoramento escolar por RFID.
+            </p>
+          </div>
+
+          <span class="counter-badge">
+            Versão 0.1.1
+          </span>
+        </section>
+
+        <section class="row g-4">
+          <div class="col-12 col-xl-6">
+            <article class="content-card h-100">
+              <span class="page-label">Problema</span>
+
+              <h2 class="about-title">O que o sistema busca resolver?</h2>
+
+              <p class="about-text">
+                O Sentinela busca reduzir falhas no controle manual de presença
+                e facilitar o acompanhamento da movimentação de alunos dentro da
+                unidade escolar. O sistema registra leituras RFID realizadas por
+                leitores instalados em ambientes monitorados e organiza essas
+                informações em painéis administrativos.
+              </p>
+            </article>
+          </div>
+
+          <div class="col-12 col-xl-6">
+            <article class="content-card h-100">
+              <span class="page-label">Objetivo</span>
+
+              <h2 class="about-title">Objetivo do projeto</h2>
+
+              <p class="about-text">
+                O objetivo da versão 0.1.1 é consolidar uma base funcional com
+                cadastro de alunos, professores, turmas, ambientes, leitores
+                RFID, registros de movimentação e histórico integrado ao banco de
+                dados. Essa estrutura serve como fundação para a futura chamada
+                automática.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="row g-4 mt-1">
+          <div class="col-12 col-xl-7">
+            <article class="content-card h-100">
+              <span class="page-label">Funcionamento</span>
+
+              <h2 class="about-title">Como o Sentinela funciona?</h2>
+
+              <p class="about-text">
+                Cada aluno possui uma tag RFID vinculada ao seu cadastro. Quando
+                a tag é lida por um leitor instalado em um ambiente, o sistema
+                identifica o aluno, o leitor, o ambiente e registra a
+                movimentação no histórico.
+              </p>
+
+              <div class="about-flow mt-4">
+                <div>
+                  <strong>1</strong>
+                  <span>Aluno recebe uma tag RFID</span>
+                </div>
+
+                <div>
+                  <strong>2</strong>
+                  <span>Leitor identifica a tag no ambiente</span>
+                </div>
+
+                <div>
+                  <strong>3</strong>
+                  <span>Sistema registra a movimentação</span>
+                </div>
+
+                <div>
+                  <strong>4</strong>
+                  <span>Usuário consulta dados no painel</span>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-12 col-xl-5">
+            <article class="content-card h-100">
+              <span class="page-label">Público-alvo</span>
+
+              <h2 class="about-title">Usuários do sistema</h2>
+
+              <p class="about-text">
+                O sistema foi pensado para apoiar a secretaria, coordenação,
+                professores e equipe de gestão escolar no acompanhamento de
+                presença, movimentação e organização acadêmica.
+              </p>
+
+              <div class="about-users mt-4">
+                <span>Secretaria</span>
+                <span>Coordenação</span>
+                <span>Professores</span>
+                <span>Gestão escolar</span>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="content-card mt-4">
+          <div class="section-header">
+            <div>
+              <span class="page-label">Módulos</span>
+              <h2>Áreas disponíveis na versão 0.1.1</h2>
+            </div>
+          </div>
+
+          <div class="row g-3">
+            <div class="col-12 col-md-6 col-xl-4">
+              <article class="module-card h-100">
+                <div>
+                  <h3>Cadastro de Alunos</h3>
+                  <p>Gerenciamento de alunos e vínculo com tags RFID.</p>
+                </div>
+              </article>
+            </div>
+
+            <div class="col-12 col-md-6 col-xl-4">
+              <article class="module-card h-100">
+                <div>
+                  <h3>Cadastro de Professores</h3>
+                  <p>Gerenciamento de professores ativos e inativos.</p>
+                </div>
+              </article>
+            </div>
+
+            <div class="col-12 col-md-6 col-xl-4">
+              <article class="module-card h-100">
+                <div>
+                  <h3>Gestão Acadêmica</h3>
+                  <p>Cursos, turmas e vínculos entre professores e turmas.</p>
+                </div>
+              </article>
+            </div>
+
+            <div class="col-12 col-md-6 col-xl-4">
+              <article class="module-card h-100">
+                <div>
+                  <h3>Gestão de Ambientes</h3>
+                  <p>Cadastro dos espaços físicos monitorados pela unidade.</p>
+                </div>
+              </article>
+            </div>
+
+            <div class="col-12 col-md-6 col-xl-4">
+              <article class="module-card h-100">
+                <div>
+                  <h3>Leitores RFID</h3>
+                  <p>Cadastro dos leitores vinculados aos ambientes.</p>
+                </div>
+              </article>
+            </div>
+
+            <div class="col-12 col-md-6 col-xl-4">
+              <article class="module-card h-100">
+                <div>
+                  <h3>Histórico RFID</h3>
+                  <p>Consulta de movimentações reais registradas no banco.</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="content-card mt-4">
+          <div class="section-header">
+            <div>
+              <span class="page-label">Tecnologias</span>
+              <h2>Tecnologias utilizadas</h2>
+            </div>
+          </div>
+
+          <div class="tech-list">
+            <span>Python</span>
+            <span>Flask</span>
+            <span>MySQL</span>
+            <span>JavaScript</span>
+            <span>HTML</span>
+            <span>CSS</span>
+            <span>Bootstrap</span>
+            <span>RFID</span>
+            <span>Arduino UNO R4 WiFi</span>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="../static/js/auth.js"></script>
+  </body>
+</html>
