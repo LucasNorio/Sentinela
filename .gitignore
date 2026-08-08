@@ -26,3 +26,11 @@ Thumbs.db
 # Arquivos temporários
 *.log
 *.tmp
+
+# Arquivos acidentais de Node
+package.json
+package-lock.json
+
+# Scripts temporários antigos
+criar_admin.py
+criar_usuarios_teste.py

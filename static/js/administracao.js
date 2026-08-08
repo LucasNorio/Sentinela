@@ -48,7 +48,7 @@ function renderizarInfoSistema(statusSistema, resumo) {
 
     <div>
       <span>Versão</span>
-      <strong>0.1</strong>
+      <strong>0.2.0</strong>
     </div>
 
     <div>

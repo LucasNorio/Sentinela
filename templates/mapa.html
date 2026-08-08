@@ -33,16 +33,16 @@
         <nav class="sidebar-nav">
           <a href="/home">Home</a>
           <a class="active" href="/mapa">Mapa</a>
-          <a href="/gestao-academica">Gestão Acadêmica</a>
-          <a href="/cadastro-alunos">Cadastro de Alunos</a>
           <a href="/cadastro-professores">Cadastro de Professores</a>
+          <a href="/cadastro-alunos">Cadastro de Alunos</a>
+          <a href="/gestao-academica">Gestão Acadêmica</a>
           <a href="/administracao">Administração</a>
           <a href="/sobre">Sobre</a>
         </nav>
 
         <div class="sidebar-footer">
           <span>SENAI Botucatu</span>
-          <small>Versão 0.1.2</small>
+          <small>Versão 0.2.0</small>
         </div>
       </aside>
 
@@ -51,9 +51,9 @@
           <div>
             <span class="page-label">Mapa</span>
 
-            <h1>Ambientes Monitorados</h1>
+            <h1 class="title">Ambientes Monitorados</h1>
 
-            <p>
+            <p class="paragrafo1">
               Visualize os ambientes da unidade, leitores RFID instalados e a
               situação operacional de cada espaço monitorado.
             </p>
@@ -67,33 +67,33 @@
         <section class="row g-4 mb-4">
           <div class="col-12 col-md-6 col-xl-3">
             <article class="stat-card">
-              <span>Total de ambientes</span>
-              <strong id="mapaTotalAmbientes">0</strong>
-              <small>ambientes cadastrados</small>
+              <span class="paragrafo">Total de ambientes: </span>
+              <strong class="paragrafo" id="mapaTotalAmbientes">0</strong>
+              <small class="paragrafo">ambientes cadastrados</small>
             </article>
           </div>
 
           <div class="col-12 col-md-6 col-xl-3">
             <article class="stat-card">
-              <span>Ambientes ativos</span>
-              <strong id="mapaAmbientesAtivos">0</strong>
-              <small>em uso normal</small>
+              <span class="paragrafo">Ambientes ativos: </span>
+              <strong class="paragrafo" id="mapaAmbientesAtivos">0</strong>
+              <small class="paragrafo">em uso normal</small>
             </article>
           </div>
 
           <div class="col-12 col-md-6 col-xl-3">
             <article class="stat-card">
-              <span>Leitores ativos</span>
-              <strong id="mapaLeitoresAtivos">0</strong>
-              <small>dispositivos operacionais</small>
+              <span class="paragrafo">Leitores ativos: </span>
+              <strong class="paragrafo" id="mapaLeitoresAtivos">0</strong>
+              <small class="paragrafo">dispositivos operacionais</small>
             </article>
           </div>
 
           <div class="col-12 col-md-6 col-xl-3">
             <article class="stat-card">
-              <span>Sem leitor</span>
-              <strong id="mapaAmbientesSemLeitor">0</strong>
-              <small>ambientes sem RFID</small>
+              <span class="paragrafo">Sem leitor: </span>
+              <strong class="paragrafo" id="mapaAmbientesSemLeitor">0</strong>
+              <small class="paragrafo">ambientes sem RFID</small>
             </article>
           </div>
         </section>
@@ -149,7 +149,7 @@
         </section>
 
         <section class="row g-4 mb-4">
-          <div class="col-12 col-xl-4">
+          <div class="col-12 col-xl-4" data-rota="/historico">
             <article class="content-card map-action-card h-100">
               <div>
                 <span class="page-label">Histórico</span>
@@ -168,7 +168,7 @@
             </article>
           </div>
 
-          <div class="col-12 col-xl-4">
+          <div class="col-12 col-xl-4" data-rota="/gestao-ambientes">
             <article class="content-card map-action-card h-100">
               <div>
                 <span class="page-label">Ambientes</span>
@@ -187,7 +187,7 @@
             </article>
           </div>
 
-          <div class="col-12 col-xl-4">
+          <div class="col-12 col-xl-4" data-rota="/gestao-leitores">
             <article class="content-card map-action-card h-100">
               <div>
                 <span class="page-label">Leitores RFID</span>

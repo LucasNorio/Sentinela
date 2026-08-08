@@ -4,6 +4,25 @@ CREATE DATABASE IF NOT EXISTS sentinela_db
 
 USE sentinela_db;
 
+CREATE TABLE IF NOT EXISTS usuario (
+  id_usuario INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(120) NOT NULL,
+  email VARCHAR(150) NOT NULL UNIQUE,
+  senha_hash VARCHAR(255) NOT NULL,
+  perfil ENUM(
+    'Administrador',
+    'Coordenação',
+    'Secretaria',
+    'Professor'
+  ) NOT NULL,
+  status ENUM('Ativo', 'Inativo') NOT NULL DEFAULT 'Ativo',
+  criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  atualizado_em DATETIME NULL,
+  ultimo_login DATETIME NULL,
+  inativado_em DATETIME NULL,
+  motivo_inativacao VARCHAR(255) NULL
+);
+
 CREATE TABLE IF NOT EXISTS curso (
   id_curso INT AUTO_INCREMENT PRIMARY KEY,
   nome VARCHAR(120) NOT NULL,

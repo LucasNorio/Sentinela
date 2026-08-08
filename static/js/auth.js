@@ -1,132 +1,233 @@
-const USUARIO_TESTE = {
-  email: 'adminsentinela@gmail.com',
-  senha: 'adminsentinela'
-}
+async function requisicaoAuth(url, opcoes = {}) {
+  const resposta = await fetch(url, {
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    ...opcoes,
+  });
 
-const SESSION_KEY = 'sentinela_usuario_logado'
+  const texto = await resposta.text();
 
-function obterUsuarioLogado() {
-  const usuario = localStorage.getItem(SESSION_KEY)
+  let dados = {};
 
-  if (!usuario) {
-    return null
-  }
-
-  return JSON.parse(usuario)
-}
-
-function salvarUsuarioLogado(email) {
-  const usuario = {
-    email: email,
-    nome: 'Administrador',
-    cargo: 'Secretaria / Coordenação',
-    unidade: 'SENAI Botucatu',
-    loginEm: new Date().toISOString()
-  }
-
-  localStorage.setItem(SESSION_KEY, JSON.stringify(usuario))
-}
-
-function iniciarLogin() {
-  const form = document.querySelector('#loginForm')
-  const alert = document.querySelector('#loginAlert')
-
-  if (!form) {
-    return
-  }
-
-  form.addEventListener('submit', (event) => {
-    event.preventDefault()
-
-    const email = document.querySelector('#email').value.trim().toLowerCase()
-    const senha = document.querySelector('#senha').value.trim()
-
-    if (email === USUARIO_TESTE.email && senha === USUARIO_TESTE.senha) {
-      salvarUsuarioLogado(email)
-      window.location.href = '/home'
-      return
+  if (texto) {
+    try {
+      dados = JSON.parse(texto);
+    } catch {
+      dados = {
+        erro: texto,
+      };
     }
-
-    alert.textContent = 'E-mail ou senha inválidos. Confira as credenciais de teste e tente novamente.'
-    alert.classList.remove('d-none')
-  })
-}
-
-function protegerPagina() {
-  const usuario = obterUsuarioLogado()
-
-  if (!usuario) {
-    window.location.href = '/'
-    return null
   }
 
-  return usuario
-}
-
-function renderizarUsuarioLogado() {
-  const usuario = obterUsuarioLogado()
-
-  if (!usuario) {
-    return
+  if (!resposta.ok) {
+    throw new Error(
+      dados.erro || `Erro ${resposta.status} ao processar a requisição.`
+    );
   }
 
-  const nomeUsuario = document.querySelector('#nomeUsuario')
-  const cargoUsuario = document.querySelector('#cargoUsuario')
-  const unidadeUsuario = document.querySelector('#unidadeUsuario')
-  const saudacaoUsuario = document.querySelector('#saudacaoUsuario')
-  const avatarUsuario = document.querySelector('#avatarUsuario')
+  return dados;
+}
+
+function obterElementosLogin() {
+  return {
+    form:
+      document.querySelector("#formLogin") ||
+      document.querySelector("#loginForm") ||
+      document.querySelector("form"),
+    email:
+      document.querySelector("#email") ||
+      document.querySelector("#emailLogin") ||
+      document.querySelector('input[type="email"]'),
+    senha:
+      document.querySelector("#senha") ||
+      document.querySelector("#senhaLogin") ||
+      document.querySelector('input[type="password"]'),
+  };
+}
+
+function atualizarPainelUsuario(usuario) {
+  const nomeUsuario = document.querySelector("#nomeUsuario");
+  const cargoUsuario = document.querySelector("#cargoUsuario");
+  const avatarUsuario = document.querySelector("#avatarUsuario");
 
   if (nomeUsuario) {
-    nomeUsuario.textContent = usuario.nome
+    nomeUsuario.textContent = usuario.nome;
   }
 
   if (cargoUsuario) {
-    cargoUsuario.textContent = usuario.cargo
+    cargoUsuario.textContent = usuario.perfil;
   }
 
-  if (unidadeUsuario) {
-    unidadeUsuario.textContent = usuario.unidade
-  }
-
-  if (saudacaoUsuario) {
-    saudacaoUsuario.textContent = `Olá, ${usuario.nome}`
-  }
-
-  if (avatarUsuario) {
-    avatarUsuario.textContent = usuario.nome.charAt(0).toUpperCase()
+  if (avatarUsuario && usuario.nome) {
+    avatarUsuario.textContent = usuario.nome.charAt(0).toUpperCase();
   }
 }
 
-function sairDoSistema() {
-  localStorage.removeItem(SESSION_KEY)
-  window.location.href = '/'
-}
+function obterRotasPermitidasPorPerfil(perfil) {
+  const rotasComuns = [
+    "/home",
+    "/mapa",
+    "/historico",
+    "/sobre",
+  ];
 
-function iniciarBotaoSair() {
-  const botaoSair = document.querySelector('#btnSair')
+  const rotasGestao = [
+    "/cadastro-professores",
+    "/cadastro-alunos",
+    "/gestao-academica",
+    "/gestao-ambientes",
+    "/gestao-leitores",
+  ];
 
-  if (!botaoSair) {
-    return
+  const rotasAdmin = [
+    "/administracao",
+    "/gestao-usuarios",
+  ];
+
+  if (perfil === "Administrador") {
+    return [
+      ...rotasComuns,
+      ...rotasGestao,
+      ...rotasAdmin,
+    ];
   }
 
-  botaoSair.addEventListener('click', () => {
-    sairDoSistema()
-  })
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  const pagina = document.body.dataset.page
-
-  if (pagina === 'login') {
-    iniciarLogin()
+  if (perfil === "Coordenação" || perfil === "Secretaria") {
+    return [
+      ...rotasComuns,
+      ...rotasGestao,
+    ];
   }
 
-  if (pagina === 'protected') {
-    const usuario = protegerPagina()
+  if (perfil === "Professor") {
+    return rotasComuns;
+  }
 
-    if (usuario) {
-      renderizarUsuarioLogado()
-      iniciarBotaoSair()
+  return [];
+}
+
+function esconderElementoDeNavegacao(link) {
+  const card =
+    link.closest(".card") ||
+    link.closest(".dashboard-card") ||
+    link.closest(".module-card") ||
+    link.closest(".action-card") ||
+    link.closest(".menu-card") ||
+    link.closest(".col") ||
+    link;
+
+  card.style.display = "none";
+}
+
+function aplicarPermissoesInterface(usuario) {
+  const rotasPermitidas = obterRotasPermitidasPorPerfil(usuario.perfil);
+
+  const links = document.querySelectorAll("a[href]");
+
+  links.forEach((link) => {
+    const href = link.getAttribute("href");
+
+    if (!href || href.startsWith("http") || href.startsWith("#")) {
+      return;
     }
+
+    if (href === "/" || href === "/sair") {
+      return;
+    }
+
+    if (!rotasPermitidas.includes(href)) {
+      esconderElementoDeNavegacao(link);
+    }
+  });
+
+  const elementosComRota = document.querySelectorAll("[data-rota]");
+
+  elementosComRota.forEach((elemento) => {
+    const rota = elemento.getAttribute("data-rota");
+
+    if (!rotasPermitidas.includes(rota)) {
+      elemento.style.display = "none";
+    }
+  });
+}
+
+async function verificarSessao() {
+  const paginaProtegida = document.body.dataset.page === "protected";
+
+  if (!paginaProtegida) {
+    return;
   }
-})
+
+  try {
+    const dados = await requisicaoAuth("/api/auth/me");
+
+    atualizarPainelUsuario(dados.usuario);
+    aplicarPermissoesInterface(dados.usuario);
+  } catch {
+    window.location.href = "/";
+  }
+}
+
+async function realizarLogin(event) {
+  event.preventDefault();
+
+  const { email, senha } = obterElementosLogin();
+
+  const emailValor = email.value.trim();
+  const senhaValor = senha.value.trim();
+
+  if (!emailValor || !senhaValor) {
+    alert("Informe o e-mail e a senha para acessar o sistema.");
+    return;
+  }
+
+  try {
+    await requisicaoAuth("/api/auth/login", {
+      method: "POST",
+      body: JSON.stringify({
+        email: emailValor,
+        senha: senhaValor,
+      }),
+    });
+
+    window.location.href = "/home";
+  } catch (erro) {
+    alert(erro.message);
+  }
+}
+
+async function realizarLogout() {
+  try {
+    await requisicaoAuth("/api/auth/logout", {
+      method: "POST",
+    });
+  } catch {
+  } finally {
+    window.location.href = "/";
+  }
+}
+
+function iniciarLogin() {
+  const paginaProtegida = document.body.dataset.page === "protected";
+  const { form, email, senha } = obterElementosLogin();
+
+  if (!paginaProtegida && form && email && senha) {
+    form.addEventListener("submit", realizarLogin);
+  }
+}
+
+function iniciarLogout() {
+  const btnSair = document.querySelector("#btnSair");
+
+  if (btnSair) {
+    btnSair.addEventListener("click", realizarLogout);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  iniciarLogin();
+  iniciarLogout();
+  verificarSessao();
+});
