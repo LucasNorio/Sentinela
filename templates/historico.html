@@ -1,11 +1,11 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="pt-BR">
   <head>
     <meta charset="utf-8" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Sentinela | Histórico</title>
+    <title>Sentinela | HistÃ³rico</title>
 
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -33,33 +33,34 @@
         <nav class="sidebar-nav">
           <a href="/home">Home</a>
           <a href="/mapa">Mapa</a>
-          <a href="/gestao-academica">Gestão Acadêmica</a>
-          <a href="/cadastro-alunos">Cadastro de Alunos</a>
+          <a href="/chamada">Chamada</a>
           <a href="/cadastro-professores">Cadastro de Professores</a>
-          <a href="/administracao">Administração</a>
+          <a href="/cadastro-alunos">Cadastro de Alunos</a>
+          <a href="/gestao-academica">GestÃ£o AcadÃªmica</a>
+          <a href="/administracao">AdministraÃ§Ã£o</a>
           <a href="/sobre">Sobre</a>
         </nav>
 
         <div class="sidebar-footer">
           <span>SENAI Botucatu</span>
-          <small>Versão 0.1.1</small>
+          <small>VersÃ£o 0.3.0</small>
         </div>
       </aside>
 
       <main class="main-content">
         <div class="page-header">
           <div>
-            <span class="page-label">Histórico</span>
-            <h1>Histórico de Movimentações</h1>
-            <p>
-              Consulte os registros RFID reais de entrada, saída, movimentação e
+            <span class="page-label">HistÃ³rico</span>
+            <h1>HistÃ³rico de MovimentaÃ§Ãµes</h1>
+            <p class="paragrafo1">
+              Consulte os registros RFID reais de entrada, saÃ­da, movimentaÃ§Ã£o e
               alertas capturados pelos leitores instalados nos ambientes
               monitorados.
             </p>
           </div>
 
           <button id="btnAtualizarHistorico" class="btn btn-danger fw-bold">
-            Atualizar histórico
+            Atualizar histÃ³rico
           </button>
         </div>
 
@@ -82,9 +83,9 @@
 
           <div class="col-12 col-md-3">
             <article class="stat-card">
-              <span>Saídas</span>
+              <span>SaÃ­das</span>
               <strong id="totalSaidasHistorico">0</strong>
-              <small>registros de saída</small>
+              <small>registros de saÃ­da</small>
             </article>
           </div>
 
@@ -92,7 +93,7 @@
             <article class="stat-card">
               <span>Alertas</span>
               <strong id="totalAlertasHistorico">0</strong>
-              <small>leituras com inconsistência</small>
+              <small>leituras com inconsistÃªncia</small>
             </article>
           </div>
         </section>
@@ -101,7 +102,7 @@
           <div class="section-header">
             <div>
               <span class="page-label">Registros RFID</span>
-              <h2>Movimentações registradas</h2>
+              <h2>MovimentaÃ§Ãµes registradas</h2>
             </div>
 
             <span id="contadorRegistros" class="counter-badge">
@@ -115,7 +116,7 @@
                 id="buscaRegistro"
                 type="search"
                 class="form-control"
-                placeholder="Buscar por aluno, tag, leitor, ambiente ou observação..."
+                placeholder="Buscar por aluno, tag, leitor, ambiente ou observaÃ§Ã£o..."
               />
             </div>
 
@@ -123,8 +124,8 @@
               <select id="filtroTipoRegistro" class="form-select">
                 <option value="Todos">Todos</option>
                 <option value="Entrada">Entradas</option>
-                <option value="Saída">Saídas</option>
-                <option value="Movimentação">Movimentações</option>
+                <option value="SaÃ­da">SaÃ­das</option>
+                <option value="MovimentaÃ§Ã£o">MovimentaÃ§Ãµes</option>
                 <option value="Alerta">Alertas</option>
               </select>
             </div>
@@ -140,7 +141,7 @@
                   <th>Leitor</th>
                   <th>Ambiente</th>
                   <th>Tipo</th>
-                  <th>Observação</th>
+                  <th>ObservaÃ§Ã£o</th>
                 </tr>
               </thead>
 

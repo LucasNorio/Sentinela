@@ -1,4 +1,5 @@
 # Python
+
 __pycache__/
 *.py[cod]
 *.pyo
@@ -6,23 +7,41 @@ __pycache__/
 .pytest_cache/
 
 # Ambientes virtuais
+
 .venv/
 venv/
 env/
 
 # Variáveis de ambiente
+
 .env
+.env.*
+!.env.example
 
 # Node / dependências acidentais
+
 node_modules/
 package-lock.json
 
 # Sistema operacional / editores
+
 .DS_Store
 Thumbs.db
 .vscode/
 .idea/
 
 # Arquivos temporários
+
 *.log
 *.tmp
+
+# Build / distribuição Python
+
+build/
+dist/
+*.egg-info/
+
+# Cobertura de testes
+
+.coverage
+htmlcov/

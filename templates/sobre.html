@@ -1,263 +1,862 @@
-<!doctype html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="utf-8" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Sentinela | Sobre o Sistema</title>
+  <title>Sentinela | Sobre o Sistema</title>
 
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
 
-    <link rel="stylesheet" href="../static/css/style.css" />
-  </head>
+  <link
+    rel="stylesheet"
+    href="../static/css/style.css"
+  />
+</head>
 
-  <body class="dashboard-page" data-page="protected">
-    <div class="app-layout">
-      <aside class="sidebar">
-        <div class="sidebar-brand">
-          <img
-            src="../static/images/logo/SENTINELALOGOtransparente.png"
-            alt="Logo do sistema Sentinela"
-          />
+<body
+  class="dashboard-page"
+  data-page="protected"
+>
+  <div class="app-layout">
 
-          <div>
-            <strong>Sentinela</strong>
-            <span>Monitoramento RFID</span>
-          </div>
+    <aside class="sidebar">
+
+      <div class="sidebar-brand">
+        <img
+          src="../static/images/logo/SENTINELALOGOtransparente.png"
+          alt="Logo Sentinela"
+        />
+
+        <div>
+          <strong>Sentinela</strong>
+          <span>Monitoramento RFID</span>
         </div>
+      </div>
 
-        <nav class="sidebar-nav">
-          <a href="/home">Home</a>
-          <a href="/mapa">Mapa</a>
-          <a href="/gestao-academica">Gestão Acadêmica</a>
-          <a href="/cadastro-alunos">Cadastro de Alunos</a>
-          <a href="/cadastro-professores">Cadastro de Professores</a>
-          <a href="/administracao">Administração</a>
-          <a class="active" href="/sobre">Sobre</a>
-        </nav>
+      <nav class="sidebar-nav">
+        <a href="/home">
+          Home
+        </a>
 
-        <div class="sidebar-footer">
-          <span>SENAI Botucatu</span>
-          <small>Versão 0.1.1</small>
-        </div>
-      </aside>
+        <a href="/mapa">
+          Mapa
+        </a>
 
-      <main class="main-content">
-        <div class="page-header">
-          <div>
-            <span class="page-label">Apresentação</span>
+        <a href="/chamada">
+          Chamada
+        </a>
 
-            <h1>Sobre o Sistema</h1>
+        <a href="/cadastro-professores">
+          Cadastro de Professores
+        </a>
 
-            <p>
-              Conheça a proposta, os objetivos e o funcionamento da versão 0.1.1
-              do projeto Sentinela.
-            </p>
-          </div>
-        </div>
+        <a href="/cadastro-alunos">
+          Cadastro de Alunos
+        </a>
 
-        <section class="about-hero content-card mb-4">
-          <div>
-            <span class="page-label">Projeto TCC</span>
+        <a href="/gestao-academica">
+          GestÃ£o AcadÃªmica
+        </a>
 
-            <h2>Sentinela</h2>
+        <a href="/administracao">
+          AdministraÃ§Ã£o
+        </a>
 
-            <p>
-              Sistema de chamada automática e monitoramento escolar por RFID.
-            </p>
-          </div>
+        <a
+          class="active"
+          href="/sobre"
+        >
+          Sobre
+        </a>
+      </nav>
 
-          <span class="counter-badge">
-            Versão 0.1.1
+      <div class="sidebar-footer">
+        <span>SENAI Botucatu</span>
+        <small>VersÃ£o 0.3.0</small>
+      </div>
+
+    </aside>
+
+    <main class="main-content">
+
+      <div class="page-header mb-4">
+        <div>
+
+          <span class="page-label">
+            ApresentaÃ§Ã£o
           </span>
-        </section>
 
-        <section class="row g-4">
-          <div class="col-12 col-xl-6">
-            <article class="content-card h-100">
-              <span class="page-label">Problema</span>
+          <h1 class="title">
+            Sobre o Sistema
+          </h1>
 
-              <h2 class="about-title">O que o sistema busca resolver?</h2>
+          <p class="paragrafo1">
+            ConheÃ§a a proposta, os objetivos e o funcionamento
+            da versÃ£o 0.3.0 do projeto Sentinela.
+          </p>
 
-              <p class="about-text">
-                O Sentinela busca reduzir falhas no controle manual de presença
-                e facilitar o acompanhamento da movimentação de alunos dentro da
-                unidade escolar. O sistema registra leituras RFID realizadas por
-                leitores instalados em ambientes monitorados e organiza essas
-                informações em painéis administrativos.
-              </p>
-            </article>
-          </div>
+        </div>
+      </div>
 
-          <div class="col-12 col-xl-6">
-            <article class="content-card h-100">
-              <span class="page-label">Objetivo</span>
+      <section class="about-hero content-card mb-4">
 
-              <h2 class="about-title">Objetivo do projeto</h2>
+        <div>
 
-              <p class="about-text">
-                O objetivo da versão 0.1.1 é consolidar uma base funcional com
-                cadastro de alunos, professores, turmas, ambientes, leitores
-                RFID, registros de movimentação e histórico integrado ao banco de
-                dados. Essa estrutura serve como fundação para a futura chamada
-                automática.
-              </p>
-            </article>
-          </div>
-        </section>
+          <span class="page-label">
+            Projeto TCC
+          </span>
 
-        <section class="row g-4 mt-1">
-          <div class="col-12 col-xl-7">
-            <article class="content-card h-100">
-              <span class="page-label">Funcionamento</span>
+          <h2>
+            Sentinela
+          </h2>
 
-              <h2 class="about-title">Como o Sentinela funciona?</h2>
+          <p>
+            Sistema de chamada automÃ¡tica e monitoramento
+            escolar baseado em RFID.
+          </p>
 
-              <p class="about-text">
-                Cada aluno possui uma tag RFID vinculada ao seu cadastro. Quando
-                a tag é lida por um leitor instalado em um ambiente, o sistema
-                identifica o aluno, o leitor, o ambiente e registra a
-                movimentação no histórico.
-              </p>
+        </div>
 
-              <div class="about-flow mt-4">
-                <div>
-                  <strong>1</strong>
-                  <span>Aluno recebe uma tag RFID</span>
-                </div>
+        <span class="counter-badge">
+          VersÃ£o 0.3.0
+        </span>
 
-                <div>
-                  <strong>2</strong>
-                  <span>Leitor identifica a tag no ambiente</span>
-                </div>
+      </section>
 
-                <div>
-                  <strong>3</strong>
-                  <span>Sistema registra a movimentação</span>
-                </div>
+      <section class="row g-4">
 
-                <div>
-                  <strong>4</strong>
-                  <span>Usuário consulta dados no painel</span>
-                </div>
+        <div class="col-12 col-xl-6">
+          <article class="content-card h-100">
+
+            <span class="page-label">
+              Problema
+            </span>
+
+            <h2 class="about-title">
+              O que o sistema busca resolver?
+            </h2>
+
+            <p class="about-text">
+              O Sentinela busca reduzir a dependÃªncia do controle
+              manual de presenÃ§a e facilitar o acompanhamento da
+              movimentaÃ§Ã£o de alunos dentro da unidade escolar.
+              Registros RFID podem ser associados a alunos,
+              leitores e ambientes, formando uma base de eventos
+              que posteriormente pode ser interpretada pelo mÃ³dulo
+              de chamada.
+            </p>
+
+          </article>
+        </div>
+
+        <div class="col-12 col-xl-6">
+          <article class="content-card h-100">
+
+            <span class="page-label">
+              Objetivo
+            </span>
+
+            <h2 class="about-title">
+              Objetivo da versÃ£o 0.3.0
+            </h2>
+
+            <p class="about-text">
+              A versÃ£o 0.3.0 introduz o nÃºcleo de chamada e
+              presenÃ§a escolar do Sentinela. O sistema passa a
+              permitir o planejamento de aulas, geraÃ§Ã£o de chamadas,
+              interpretaÃ§Ã£o de registros RFID, classificaÃ§Ã£o de
+              presenÃ§a, encerramento automÃ¡tico de chamadas,
+              correÃ§Ãµes manuais auditadas e acesso dos professores
+              somente Ã s turmas Ã s quais estÃ£o vinculados.
+            </p>
+
+          </article>
+        </div>
+
+      </section>
+
+      <section class="row g-4 mt-1">
+
+        <div class="col-12 col-xl-7">
+          <article class="content-card h-100">
+
+            <span class="page-label">
+              Funcionamento
+            </span>
+
+            <h2 class="about-title">
+              Como funciona a chamada?
+            </h2>
+
+            <p class="about-text">
+              Uma aula Ã© criada para uma turma, professor e
+              ambiente. A chamada gera registros de presenÃ§a para
+              os alunos ativos da turma. Durante a aula, registros
+              RFID compatÃ­veis com o aluno, ambiente e janela de
+              horÃ¡rio podem ser processados automaticamente como
+              presenÃ§a ou atraso. Ao finalizar a aula, alunos ainda
+              pendentes sÃ£o classificados como ausentes.
+            </p>
+
+            <div class="about-flow mt-4">
+
+              <div>
+                <strong>1</strong>
+                <span>Aula Ã© programada</span>
               </div>
-            </article>
-          </div>
 
-          <div class="col-12 col-xl-5">
-            <article class="content-card h-100">
-              <span class="page-label">Público-alvo</span>
-
-              <h2 class="about-title">Usuários do sistema</h2>
-
-              <p class="about-text">
-                O sistema foi pensado para apoiar a secretaria, coordenação,
-                professores e equipe de gestão escolar no acompanhamento de
-                presença, movimentação e organização acadêmica.
-              </p>
-
-              <div class="about-users mt-4">
-                <span>Secretaria</span>
-                <span>Coordenação</span>
-                <span>Professores</span>
-                <span>Gestão escolar</span>
+              <div>
+                <strong>2</strong>
+                <span>Chamada Ã© gerada</span>
               </div>
+
+              <div>
+                <strong>3</strong>
+                <span>Aula Ã© iniciada</span>
+              </div>
+
+              <div>
+                <strong>4</strong>
+                <span>Registros RFID sÃ£o processados</span>
+              </div>
+
+              <div>
+                <strong>5</strong>
+                <span>PresenÃ§a Ã© classificada</span>
+              </div>
+
+              <div>
+                <strong>6</strong>
+                <span>Chamada Ã© finalizada</span>
+              </div>
+
+            </div>
+
+          </article>
+        </div>
+
+        <div class="col-12 col-xl-5">
+          <article class="content-card h-100">
+
+            <span class="page-label">
+              PresenÃ§a
+            </span>
+
+            <h2 class="about-title">
+              SituaÃ§Ãµes de presenÃ§a
+            </h2>
+
+            <p class="about-text">
+              Cada aluno possui uma situaÃ§Ã£o individual dentro da
+              chamada. O estado pode ser definido automaticamente
+              pelo sistema ou alterado manualmente por um usuÃ¡rio
+              autorizado, mantendo registro da correÃ§Ã£o.
+            </p>
+
+            <div class="about-users mt-4">
+
+              <span>Pendente</span>
+              <span>Presente</span>
+              <span>Atrasado</span>
+              <span>Ausente</span>
+              <span>Justificado</span>
+
+            </div>
+
+          </article>
+        </div>
+
+      </section>
+
+      <section class="row g-4 mt-1">
+
+        <div class="col-12 col-xl-6">
+          <article class="content-card h-100">
+
+            <span class="page-label">
+              Controle
+            </span>
+
+            <h2 class="about-title">
+              Ciclo de vida das aulas
+            </h2>
+
+            <p class="about-text">
+              As aulas possuem estados controlados para preservar
+              a integridade da chamada. Uma aula nasce como
+              programada, pode ser iniciada e posteriormente
+              finalizada. Aulas programadas tambÃ©m podem ser
+              canceladas antes de seu inÃ­cio.
+            </p>
+
+            <div class="about-users mt-4">
+              <span>Programada</span>
+              <span>Em andamento</span>
+              <span>Finalizada</span>
+              <span>Cancelada</span>
+            </div>
+
+          </article>
+        </div>
+
+        <div class="col-12 col-xl-6">
+          <article class="content-card h-100">
+
+            <span class="page-label">
+              Auditoria
+            </span>
+
+            <h2 class="about-title">
+              CorreÃ§Ãµes de presenÃ§a
+            </h2>
+
+            <p class="about-text">
+              Professores e usuÃ¡rios autorizados podem corrigir
+              situaÃ§Ãµes de presenÃ§a quando necessÃ¡rio. Cada
+              alteraÃ§Ã£o registra o estado anterior, o novo estado,
+              o usuÃ¡rio responsÃ¡vel, a data da modificaÃ§Ã£o e o
+              motivo informado.
+            </p>
+
+            <p class="about-text mb-0">
+              O histÃ³rico de ajustes Ã© preservado para permitir
+              rastreabilidade das alteraÃ§Ãµes realizadas na chamada.
+            </p>
+
+          </article>
+        </div>
+
+      </section>
+
+      <section class="content-card mt-4">
+
+        <div class="section-header">
+
+          <div>
+
+            <span class="page-label">
+              MÃ³dulos
+            </span>
+
+            <h2>
+              Ãreas disponÃ­veis na versÃ£o 0.3.0
+            </h2>
+
+          </div>
+
+        </div>
+
+        <div class="row g-3">
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <article class="module-card h-100">
+
+              <div>
+
+                <h3>
+                  Chamada
+                </h3>
+
+                <p>
+                  Planejamento de aulas, geraÃ§Ã£o de chamadas,
+                  processamento RFID, finalizaÃ§Ã£o e acompanhamento
+                  da presenÃ§a dos alunos.
+                </p>
+
+              </div>
+
             </article>
           </div>
-        </section>
 
-        <section class="content-card mt-4">
-          <div class="section-header">
-            <div>
-              <span class="page-label">Módulos</span>
-              <h2>Áreas disponíveis na versão 0.1.1</h2>
-            </div>
+          <div class="col-12 col-md-6 col-xl-4">
+            <article class="module-card h-100">
+
+              <div>
+
+                <h3>
+                  Cadastro de Alunos
+                </h3>
+
+                <p>
+                  Gerenciamento de alunos, turmas e vÃ­nculos com
+                  tags RFID.
+                </p>
+
+              </div>
+
+            </article>
           </div>
 
-          <div class="row g-3">
-            <div class="col-12 col-md-6 col-xl-4">
-              <article class="module-card h-100">
-                <div>
-                  <h3>Cadastro de Alunos</h3>
-                  <p>Gerenciamento de alunos e vínculo com tags RFID.</p>
-                </div>
-              </article>
-            </div>
+          <div class="col-12 col-md-6 col-xl-4">
+            <article class="module-card h-100">
 
-            <div class="col-12 col-md-6 col-xl-4">
-              <article class="module-card h-100">
-                <div>
-                  <h3>Cadastro de Professores</h3>
-                  <p>Gerenciamento de professores ativos e inativos.</p>
-                </div>
-              </article>
-            </div>
+              <div>
 
-            <div class="col-12 col-md-6 col-xl-4">
-              <article class="module-card h-100">
-                <div>
-                  <h3>Gestão Acadêmica</h3>
-                  <p>Cursos, turmas e vínculos entre professores e turmas.</p>
-                </div>
-              </article>
-            </div>
+                <h3>
+                  Cadastro de Professores
+                </h3>
 
-            <div class="col-12 col-md-6 col-xl-4">
-              <article class="module-card h-100">
-                <div>
-                  <h3>Gestão de Ambientes</h3>
-                  <p>Cadastro dos espaços físicos monitorados pela unidade.</p>
-                </div>
-              </article>
-            </div>
+                <p>
+                  Gerenciamento de professores ativos e inativos.
+                </p>
 
-            <div class="col-12 col-md-6 col-xl-4">
-              <article class="module-card h-100">
-                <div>
-                  <h3>Leitores RFID</h3>
-                  <p>Cadastro dos leitores vinculados aos ambientes.</p>
-                </div>
-              </article>
-            </div>
+              </div>
 
-            <div class="col-12 col-md-6 col-xl-4">
-              <article class="module-card h-100">
-                <div>
-                  <h3>Histórico RFID</h3>
-                  <p>Consulta de movimentações reais registradas no banco.</p>
-                </div>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        <section class="content-card mt-4">
-          <div class="section-header">
-            <div>
-              <span class="page-label">Tecnologias</span>
-              <h2>Tecnologias utilizadas</h2>
-            </div>
+            </article>
           </div>
 
-          <div class="tech-list">
-            <span>Python</span>
-            <span>Flask</span>
-            <span>MySQL</span>
-            <span>JavaScript</span>
-            <span>HTML</span>
-            <span>CSS</span>
-            <span>Bootstrap</span>
-            <span>RFID</span>
-            <span>Arduino UNO R4 WiFi</span>
-          </div>
-        </section>
-      </main>
-    </div>
+          <div class="col-12 col-md-6 col-xl-4">
+            <article class="module-card h-100">
 
-    <script src="../static/js/auth.js"></script>
-  </body>
+              <div>
+
+                <h3>
+                  GestÃ£o AcadÃªmica
+                </h3>
+
+                <p>
+                  Cursos, turmas e vÃ­nculos de professores e
+                  auxiliares com as turmas.
+                </p>
+
+              </div>
+
+            </article>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <article class="module-card h-100">
+
+              <div>
+
+                <h3>
+                  GestÃ£o de Ambientes
+                </h3>
+
+                <p>
+                  Cadastro e gerenciamento dos espaÃ§os fÃ­sicos
+                  utilizados pelo sistema.
+                </p>
+
+              </div>
+
+            </article>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <article class="module-card h-100">
+
+              <div>
+
+                <h3>
+                  Leitores RFID
+                </h3>
+
+                <p>
+                  Cadastro dos leitores e associaÃ§Ã£o com os
+                  ambientes monitorados.
+                </p>
+
+              </div>
+
+            </article>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <article class="module-card h-100">
+
+              <div>
+
+                <h3>
+                  HistÃ³rico RFID
+                </h3>
+
+                <p>
+                  Consulta dos eventos RFID registrados no banco
+                  de dados.
+                </p>
+
+              </div>
+
+            </article>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <article class="module-card h-100">
+
+              <div>
+
+                <h3>
+                  GestÃ£o de UsuÃ¡rios
+                </h3>
+
+                <p>
+                  Cadastro, ediÃ§Ã£o, inativaÃ§Ã£o, reativaÃ§Ã£o,
+                  redefiniÃ§Ã£o de senha e vÃ­nculo entre contas e
+                  professores.
+                </p>
+
+              </div>
+
+            </article>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <article class="module-card h-100">
+
+              <div>
+
+                <h3>
+                  Controle de Acesso
+                </h3>
+
+                <p>
+                  ProteÃ§Ã£o de pÃ¡ginas e APIs conforme o perfil e
+                  os vÃ­nculos acadÃªmicos do usuÃ¡rio autenticado.
+                </p>
+
+              </div>
+
+            </article>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <article class="module-card h-100">
+
+              <div>
+
+                <h3>
+                  CorreÃ§Ãµes e Auditoria
+                </h3>
+
+                <p>
+                  Ajustes manuais de presenÃ§a com motivo e
+                  histÃ³rico das alteraÃ§Ãµes realizadas.
+                </p>
+
+              </div>
+
+            </article>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <article class="module-card h-100">
+
+              <div>
+
+                <h3>
+                  Mapa
+                </h3>
+
+                <p>
+                  VisualizaÃ§Ã£o dos ambientes e leitores registrados
+                  no Sentinela.
+                </p>
+
+              </div>
+
+            </article>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <article class="module-card h-100">
+
+              <div>
+
+                <h3>
+                  Painel Administrativo
+                </h3>
+
+                <p>
+                  Acesso aos mÃ³dulos administrativos e informaÃ§Ãµes
+                  gerais do sistema.
+                </p>
+
+              </div>
+
+            </article>
+          </div>
+
+        </div>
+
+      </section>
+
+      <section class="content-card mt-4">
+
+        <div class="section-header">
+
+          <div>
+
+            <span class="page-label">
+              v0.3.0
+            </span>
+
+            <h2>
+              Recursos consolidados nesta versÃ£o
+            </h2>
+
+          </div>
+
+        </div>
+
+        <div class="row g-3">
+
+          <div class="col-12 col-md-6 col-xl-3">
+            <article class="module-card h-100">
+
+              <div>
+
+                <h3>
+                  Aulas
+                </h3>
+
+                <p>
+                  Cadastro, ediÃ§Ã£o, ciclo de vida, cancelamento e
+                  validaÃ§Ã£o de conflitos de horÃ¡rio.
+                </p>
+
+              </div>
+
+            </article>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-3">
+            <article class="module-card h-100">
+
+              <div>
+
+                <h3>
+                  PresenÃ§a automÃ¡tica
+                </h3>
+
+                <p>
+                  InterpretaÃ§Ã£o de registros RFID conforme aluno,
+                  ambiente, horÃ¡rio e tolerÃ¢ncia da aula.
+                </p>
+
+              </div>
+
+            </article>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-3">
+            <article class="module-card h-100">
+
+              <div>
+
+                <h3>
+                  Professor e Auxiliar
+                </h3>
+
+                <p>
+                  Acesso Ã s chamadas limitado Ã s turmas em que o
+                  professor possui vÃ­nculo acadÃªmico ativo.
+                </p>
+
+              </div>
+
+            </article>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-3">
+            <article class="module-card h-100">
+
+              <div>
+
+                <h3>
+                  Auditoria
+                </h3>
+
+                <p>
+                  HistÃ³rico de correÃ§Ãµes preservado sem sobrescrever
+                  as alteraÃ§Ãµes anteriores.
+                </p>
+
+              </div>
+
+            </article>
+          </div>
+
+        </div>
+
+      </section>
+
+      <section class="content-card mt-4">
+
+        <div class="section-header">
+
+          <div>
+
+            <span class="page-label">
+              SeguranÃ§a e integridade
+            </span>
+
+            <h2>
+              Controle do sistema
+            </h2>
+
+          </div>
+
+        </div>
+
+        <div class="row g-3">
+
+          <div class="col-12 col-md-6 col-xl-3">
+            <article class="module-card h-100">
+
+              <div>
+
+                <h3>
+                  AutenticaÃ§Ã£o
+                </h3>
+
+                <p>
+                  Login utilizando usuÃ¡rios armazenados no banco
+                  de dados e senhas protegidas por hash.
+                </p>
+
+              </div>
+
+            </article>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-3">
+            <article class="module-card h-100">
+
+              <div>
+
+                <h3>
+                  SessÃµes
+                </h3>
+
+                <p>
+                  IdentificaÃ§Ã£o do usuÃ¡rio autenticado por sessÃ£o
+                  durante o uso da aplicaÃ§Ã£o.
+                </p>
+
+              </div>
+
+            </article>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-3">
+            <article class="module-card h-100">
+
+              <div>
+
+                <h3>
+                  PermissÃµes
+                </h3>
+
+                <p>
+                  Administrador, coordenaÃ§Ã£o, secretaria e
+                  professor possuem diferentes nÃ­veis de acesso.
+                </p>
+
+              </div>
+
+            </article>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-3">
+            <article class="module-card h-100">
+
+              <div>
+
+                <h3>
+                  PreservaÃ§Ã£o de dados
+                </h3>
+
+                <p>
+                  Registros importantes sÃ£o inativados, cancelados
+                  ou mantidos em histÃ³rico em vez de removidos.
+                </p>
+
+              </div>
+
+            </article>
+          </div>
+
+        </div>
+
+      </section>
+
+      <section class="content-card mt-4">
+
+        <div class="section-header">
+
+          <div>
+
+            <span class="page-label">
+              RFID
+            </span>
+
+            <h2>
+              Estado da integraÃ§Ã£o fÃ­sica
+            </h2>
+
+          </div>
+
+        </div>
+
+        <p class="about-text mb-0">
+          A versÃ£o 0.3.0 possui o backend e as regras necessÃ¡rias
+          para receber e interpretar registros RFID, permitindo
+          testar o fluxo completo pela API. A integraÃ§Ã£o com o
+          hardware fÃ­sico serÃ¡ realizada em uma etapa posterior do
+          projeto. A arquitetura atual foi organizada para receber
+          essa integraÃ§Ã£o sem exigir uma reformulaÃ§Ã£o do mÃ³dulo de
+          chamada.
+        </p>
+
+      </section>
+
+      <section class="content-card mt-4">
+
+        <div class="section-header">
+
+          <div>
+
+            <span class="page-label">
+              Tecnologias
+            </span>
+
+            <h2>
+              Tecnologias do projeto
+            </h2>
+
+          </div>
+
+        </div>
+
+        <div class="tech-list">
+
+          <span>Python</span>
+          <span>Flask</span>
+          <span>MySQL</span>
+          <span>JavaScript</span>
+          <span>HTML</span>
+          <span>CSS</span>
+          <span>Bootstrap</span>
+          <span>Werkzeug Security</span>
+          <span>SessÃµes Flask</span>
+          <span>RFID</span>
+
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+  <script src="../static/js/auth.js"></script>
+
+</body>
+
 </html>

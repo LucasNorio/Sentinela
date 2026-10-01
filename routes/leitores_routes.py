@@ -1,28 +1,239 @@
-import re
 from flask import Blueprint, jsonify, request
 from mysql.connector import Error, IntegrityError
 from database import obter_conexao
 
 leitores_bp = Blueprint('leitores', __name__)
 
-TIPOS_LEITOR_VALIDOS = {
-    'Entrada',
-    'Saída',
-    'Entrada/Saída',
-    'Interno',
-    'Outro'
-}
-
-STATUS_LEITOR_VALIDOS = {
-    'Ativo',
-    'Inativo',
-    'Manutenção'
-}
+TIPOS_LEITOR_VALIDOS = {'Entrada', 'Saída', 'Entrada/Saída', 'Interno', 'Outro'}
+STATUS_LEITOR_VALIDOS = {'Ativo', 'Inativo', 'Manutenção'}
 
 
 def resposta_erro(mensagem, status=400):
     return jsonify({'erro': mensagem}), status
 
+
+def salvar_registro_rfid(uid_tag, codigo_leitor):
+    """
+    Registra a leitura RFID e converte automaticamente em presença
+    caso haja uma aula em andamento no ambiente do leitor.
+    """
+
+    print("[RFID] Entrou em salvar_registro_rfid")
+
+    conexao = obter_conexao()
+
+    if not conexao:
+        print("[RFID] Não foi possível obter conexão com o banco.")
+        return False
+
+    cursor = None
+
+    try:
+        cursor = conexao.cursor(dictionary=True)
+
+        print("[RFID] Antes da consulta da TAG")
+
+        cursor.execute("""
+            SELECT
+                t.id_aluno,
+                a.status AS status_aluno
+            FROM tag_rfid t
+            INNER JOIN aluno a
+                ON a.id_aluno = t.id_aluno
+            WHERE t.codigo = %s
+              AND t.status = 'Ativa'
+        """, (uid_tag,))
+
+        tag_info = cursor.fetchone()
+
+        print("[RFID] Depois da consulta da TAG")
+
+        if not tag_info:
+            print(
+                f"⚠️ Tag {uid_tag} não encontrada "
+                f"ou não está ativa."
+            )
+            return False
+
+        if tag_info['status_aluno'] != 'Ativo':
+            print(
+                f"⚠️ Aluno vinculado à tag {uid_tag} "
+                f"está inativo."
+            )
+            return False
+
+        id_aluno = tag_info['id_aluno']
+
+        cursor.execute("""
+            SELECT
+                id_leitor,
+                id_ambiente,
+                codigo_identificacao,
+                nome
+            FROM leitor_rfid
+            WHERE codigo_identificacao = %s
+              AND status = 'Ativo'
+            LIMIT 1
+        """, (codigo_leitor,))
+
+        leitor = cursor.fetchone()
+
+        if not leitor:
+            print(
+                f"⚠️ Leitor '{codigo_leitor}' não encontrado "
+                f"ou não está ativo."
+            )
+            return False
+
+        id_leitor = leitor['id_leitor']
+        id_ambiente = leitor['id_ambiente']
+
+        print(
+            f"[RFID] Leitor identificado: {leitor['nome']} "
+            f"| ID: {id_leitor} "
+            f"| Ambiente: {id_ambiente}"
+        )
+
+        presenca_registrada = False
+
+        cursor.execute("""
+            INSERT INTO registro_rfid (
+                id_aluno,
+                id_leitor,
+                id_ambiente,
+                codigo_tag_lida,
+                tipo,
+                data_hora
+            )
+            VALUES (
+                %s,
+                %s,
+                %s,
+                %s,
+                'Entrada',
+                NOW()
+            )
+        """, (
+            id_aluno,
+            id_leitor,
+            id_ambiente,
+            uid_tag
+        ))
+
+        id_registro = cursor.lastrowid
+
+        print(
+            f"[RFID] Registro criado: "
+            f"ID={id_registro} | "
+            f"Aluno={id_aluno} | "
+            f"Leitor={id_leitor} | "
+            f"Ambiente={id_ambiente}"
+        )
+
+        cursor.execute("""
+            SELECT
+                id_aula,
+                data_aula,
+                horario_inicio,
+                tolerancia_minutos,
+                DATE_ADD(
+                    TIMESTAMP(data_aula, horario_inicio),
+                    INTERVAL tolerancia_minutos MINUTE
+                ) AS limite_presenca
+            FROM aula
+            WHERE id_ambiente = %s
+              AND status = 'Em andamento'
+              AND data_aula = CURDATE()
+            LIMIT 1
+        """, (id_ambiente,))
+
+        aula_ativa = cursor.fetchone()
+
+        if aula_ativa:
+
+            cursor.execute(
+                """
+                SELECT NOW() <= %s AS no_prazo
+                """,
+                (aula_ativa['limite_presenca'],)
+            )
+
+            resultado_horario = cursor.fetchone()
+
+            novo_status = (
+                'Presente'
+                if resultado_horario['no_prazo']
+                else 'Atrasado'
+            )
+
+            cursor.execute("""
+                UPDATE presenca
+                SET
+                    id_registro_rfid = %s,
+                    status = %s,
+                    origem = 'RFID',
+                    horario_detectado = NOW(),
+                    observacao = 'Presença registrada automaticamente via RFID.',
+                    atualizado_em = NOW()
+                WHERE id_aula = %s
+                  AND id_aluno = %s
+                  AND status = 'Pendente'
+            """, (
+                id_registro,
+                novo_status,
+                aula_ativa['id_aula'],
+                id_aluno
+            ))
+
+            if cursor.rowcount > 0:
+                presenca_registrada = True
+
+                print(
+                    f"🎯 Presença confirmada! "
+                    f"Aluno ID: {id_aluno} "
+                    f"-> Status: {novo_status}"
+                )
+
+            else:
+                print(
+                    f"ℹ️ A presença do aluno ID: {id_aluno} "
+                    f"já foi registrada nesta aula."
+                )
+
+        else:
+            print(
+                f"ℹ️ Registro RFID salvo, mas nenhuma aula "
+                f"com status 'Em andamento' foi encontrada "
+                f"para o ambiente {id_ambiente}."
+            )
+
+        conexao.commit()
+
+        return {
+            'presenca_registrada': presenca_registrada,
+            'mensagem': (
+                'Presença registrada com sucesso.'
+                if presenca_registrada
+                else 'Tag reconhecida, mas não há aula em andamento neste ambiente.'
+            )
+        }
+
+    except Error as err:
+
+        print(f"❌ Erro ao salvar registro RFID: {err}")
+
+        if conexao:
+            conexao.rollback()
+
+        return False
+
+    finally:
+
+        if cursor:
+            cursor.close()
+
+        if conexao:
+            conexao.close()
 
 def validar_leitor(dados):
     id_ambiente = dados.get('id_ambiente')
@@ -590,3 +801,56 @@ def colocar_leitor_em_manutencao(id_leitor):
             cursor.close()
 
         conexao.close()
+
+@leitores_bp.post('/api/leitores-rfid/bip')
+def receber_bip_wifi():
+    """
+    Endpoint HTTP chamado pelo ESP32 via Wi-Fi ao ler uma tag RFID.
+    """
+
+    dados = request.get_json(silent=True) or {}
+
+    codigo_tag = str(
+        dados.get('codigo_tag', '')
+    ).strip().upper()
+
+    codigo_leitor = str(
+        dados.get('codigo_leitor', '')
+    ).strip().upper()
+
+    if not codigo_tag:
+        return jsonify({
+            'status': 'erro',
+            'mensagem': 'Código da tag não informado.',
+            'presenca_registrada': False
+        }), 400
+
+    if not codigo_leitor:
+        return jsonify({
+            'status': 'erro',
+            'mensagem': 'Código do leitor não informado.',
+            'presenca_registrada': False
+        }), 400
+
+    print(
+        f"[WIFI RFID] Tag recebida: {codigo_tag} "
+        f"| Leitor: {codigo_leitor}"
+    )
+
+    resultado = salvar_registro_rfid(
+        codigo_tag,
+        codigo_leitor
+    )
+
+    if resultado is False:
+        return jsonify({
+            'status': 'erro',
+            'mensagem': 'Tag não cadastrada, aluno inativo ou leitor inválido.',
+            'presenca_registrada': False
+        }), 404
+
+    return jsonify({
+        'status': 'sucesso',
+        'mensagem': resultado['mensagem'],
+        'presenca_registrada': resultado['presenca_registrada']
+    }), 200
