@@ -45,3 +45,11 @@ dist/
 
 .coverage
 htmlcov/
+
+# Arduino / PlatformIO
+.pio/
+*.elf
+*.hex
+
+# Arquivos locais adicionais
+*.bak

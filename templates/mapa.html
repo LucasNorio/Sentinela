@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="pt-BR">
   <head>
     <meta charset="utf-8" />
@@ -36,14 +36,14 @@
           <a href="/chamada">Chamada</a>
           <a href="/cadastro-professores">Cadastro de Professores</a>
           <a href="/cadastro-alunos">Cadastro de Alunos</a>
-          <a href="/gestao-academica">GestÃ£o AcadÃªmica</a>
-          <a href="/administracao">AdministraÃ§Ã£o</a>
+          <a href="/gestao-academica">Gestão Acadêmica</a>
+          <a href="/administracao">Administração</a>
           <a href="/sobre">Sobre</a>
         </nav>
 
         <div class="sidebar-footer">
           <span>SENAI Botucatu</span>
-          <small>VersÃ£o 0.3.0</small>
+          <small>Versão 0.4.0</small>
         </div>
       </aside>
 
@@ -56,7 +56,7 @@
 
             <p class="paragrafo1">
               Visualize os ambientes da unidade, leitores RFID instalados e a
-              situaÃ§Ã£o operacional de cada espaÃ§o monitorado.
+              situação operacional de cada espaço monitorado.
             </p>
           </div>
 
@@ -103,7 +103,7 @@
           <div class="section-header">
             <div>
               <span class="page-label">Monitoramento</span>
-              <h2>SituaÃ§Ã£o dos ambientes</h2>
+              <h2>Situação dos ambientes</h2>
             </div>
 
             <span id="contadorMapaAmbientes" class="counter-badge">
@@ -117,7 +117,7 @@
                 id="buscaMapa"
                 type="search"
                 class="form-control"
-                placeholder="Buscar por ambiente, bloco, tipo, leitor ou cÃ³digo..."
+                placeholder="Buscar por ambiente, bloco, tipo, leitor ou código..."
               />
             </div>
 
@@ -125,7 +125,7 @@
               <select id="filtroStatusMapa" class="form-select">
                 <option value="Todos">Todos</option>
                 <option value="Ativo">Ativos</option>
-                <option value="ManutenÃ§Ã£o">Em manutenÃ§Ã£o</option>
+                <option value="Manutenção">Em manutenção</option>
                 <option value="Inativo">Inativos</option>
                 <option value="Sem leitor">Sem leitor</option>
               </select>
@@ -140,7 +140,7 @@
                   <th>Tipo</th>
                   <th>Status</th>
                   <th>Leitores RFID</th>
-                  <th>SituaÃ§Ã£o</th>
+                  <th>Situação</th>
                 </tr>
               </thead>
 
@@ -153,18 +153,18 @@
           <div class="col-12 col-xl-4" data-rota="/historico">
             <article class="content-card map-action-card h-100">
               <div>
-                <span class="page-label">HistÃ³rico</span>
+                <span class="page-label">Histórico</span>
 
-                <h2>HistÃ³rico de MovimentaÃ§Ãµes</h2>
+                <h2>Histórico de Movimentações</h2>
 
                 <p>
-                  Consulte registros de entrada, saÃ­da e movimentaÃ§Ãµes RFID dos
+                  Consulte registros de entrada, saída e movimentações RFID dos
                   alunos pelos ambientes monitorados.
                 </p>
               </div>
 
               <a href="/historico" class="btn btn-danger fw-bold w-100">
-                Acessar histÃ³rico
+                Acessar histórico
               </a>
             </article>
           </div>
@@ -174,11 +174,11 @@
               <div>
                 <span class="page-label">Ambientes</span>
 
-                <h2>GestÃ£o de Ambientes</h2>
+                <h2>Gestão de Ambientes</h2>
 
                 <p>
-                  Cadastre e gerencie salas, laboratÃ³rios, portarias, oficinas e
-                  demais espaÃ§os fÃ­sicos monitorados pelo Sentinela.
+                  Cadastre e gerencie salas, laboratórios, portarias, oficinas e
+                  demais espaços físicos monitorados pelo Sentinela.
                 </p>
               </div>
 
@@ -193,7 +193,7 @@
               <div>
                 <span class="page-label">Leitores RFID</span>
 
-                <h2>GestÃ£o de Leitores</h2>
+                <h2>Gestão de Leitores</h2>
 
                 <p>
                   Cadastre e gerencie os leitores RFID instalados nos ambientes

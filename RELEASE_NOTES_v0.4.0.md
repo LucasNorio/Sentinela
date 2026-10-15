@@ -647,7 +647,7 @@ Migration
 
 Para bancos já existentes na v0.2.0 foi criada a migration da v0.4.0:
 
-database/migrations/v0.3.0_chamada.sql
+database/migrations/v0.4.0_chamada.sql
 
 Ela adiciona:
 
@@ -757,7 +757,7 @@ templates/chamada.html
 
 static/js/chamada.js
 
-database/migrations/v0.3.0_chamada.sql
+database/migrations/v0.4.0_chamada.sql
 
 Arquivos atualizados
 

@@ -426,15 +426,14 @@ Sentinela/
 ├── .gitignore
 ├── README.md
 ├── CHANGELOG.md
+├── RELEASE_NOTES_v0.4.0.md
 │
 ├── database/
 │   ├── schema.sql
 │   ├── seed.sql
 │   │
 │   └── migrations/
-│       └── v0.3.0_chamada.sql
-│
-├── docs/
+│       └── v0.4.0_chamada.sql
 │
 ├── routes/
 │   ├── auth_routes.py

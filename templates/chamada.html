@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="pt-BR">
 
 <head>
@@ -29,27 +29,27 @@
                 <a class="active" href="/chamada">Chamada</a>
                 <a href="/cadastro-professores">Cadastro de Professores</a>
                 <a href="/cadastro-alunos">Cadastro de Alunos</a>
-                <a href="/gestao-academica">GestÃ£o AcadÃªmica</a>
-                <a href="/administracao">AdministraÃ§Ã£o</a>
+                <a href="/gestao-academica">Gestão Acadêmica</a>
+                <a href="/administracao">Administração</a>
                 <a href="/sobre">Sobre</a>
             </nav>
 
             <div class="sidebar-footer">
                 <span>SENAI Botucatu</span>
-                <small>VersÃ£o 0.3.0</small>
+                <small>Versão 0.4.0</small>
             </div>
         </aside>
 
         <main class="main-content">
             <header class="topbar">
                 <div>
-                    <span class="page-label">PresenÃ§a Escolar</span>
+                    <span class="page-label">Presença Escolar</span>
 
                     <h1>Chamada</h1>
 
                     <p class="paragrafo1">
-                        Acompanhe aulas, processe registros RFID e gerencie a situaÃ§Ã£o
-                        de presenÃ§a dos alunos.
+                        Acompanhe aulas, processe registros RFID e gerencie a situação
+                        de presença dos alunos.
                     </p>
                 </div>
 
@@ -140,9 +140,9 @@
                                 <th>Turma</th>
                                 <th>Professor</th>
                                 <th>Ambiente</th>
-                                <th>HorÃ¡rio</th>
+                                <th>Horário</th>
                                 <th>Status</th>
-                                <th>AÃ§Ãµes</th>
+                                <th>Ações</th>
                             </tr>
                         </thead>
 
@@ -187,7 +187,7 @@
 
                         <div class="col-12 col-md-6 col-xl-3">
                             <div class="border rounded p-3 h-100">
-                                <small class="text-muted d-block mb-1">HorÃ¡rio</small>
+                                <small class="text-muted d-block mb-1">Horário</small>
                                 <strong id="detalheHorario">-</strong>
                             </div>
                         </div>
@@ -195,7 +195,7 @@
                         <div class="col-12 col-md-6 col-xl-3">
                             <div class="border rounded p-3 h-100">
                                 <small class="text-muted d-block mb-1">
-                                    TolerÃ¢ncia
+                                    Tolerância
                                 </small>
 
                                 <strong id="detalheTolerancia">-</strong>
@@ -285,7 +285,7 @@
                     <div class="section-header">
                         <div>
                             <span class="page-label">Alunos</span>
-                            <h2>Lista de presenÃ§a</h2>
+                            <h2>Lista de presença</h2>
                         </div>
 
                         <span id="contadorPresencas" class="counter-badge">
@@ -298,12 +298,12 @@
                             <thead>
                                 <tr>
                                     <th>Aluno</th>
-                                    <th>MatrÃ­cula</th>
+                                    <th>Matrícula</th>
                                     <th>Tag RFID</th>
                                     <th>Status</th>
                                     <th>Origem</th>
-                                    <th>HorÃ¡rio detectado</th>
-                                    <th>AÃ§Ãµes</th>
+                                    <th>Horário detectado</th>
+                                    <th>Ações</th>
                                 </tr>
                             </thead>
 
@@ -381,7 +381,7 @@
 
                             <div class="col-12 col-md-4">
                                 <label for="aulaHorarioInicio" class="form-label fw-semibold">
-                                    InÃ­cio
+                                    Início
                                 </label>
 
                                 <input id="aulaHorarioInicio" type="time" class="form-control" required />
@@ -397,7 +397,7 @@
 
                             <div class="col-12 col-md-4">
                                 <label for="aulaTolerancia" class="form-label fw-semibold">
-                                    TolerÃ¢ncia
+                                    Tolerância
                                 </label>
 
                                 <div class="input-group">
@@ -410,7 +410,7 @@
                         </div>
 
                         <div id="avisoEstadoAula" class="alert alert-light border mt-4 mb-0">
-                            A nova aula serÃ¡ criada com status
+                            A nova aula será criada com status
                             <strong>Programada</strong>.
                         </div>
                     </div>
@@ -434,9 +434,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <div>
-                        <span class="page-label">CorreÃ§Ã£o manual</span>
+                        <span class="page-label">Correção manual</span>
                         <h2 id="tituloModalCorrecao" class="modal-title fs-5">
-                            Corrigir presenÃ§a
+                            Corrigir presença
                         </h2>
                     </div>
 
@@ -472,7 +472,7 @@
                             </label>
 
                             <textarea id="correcaoMotivo" class="form-control" rows="4" maxlength="255"
-                                placeholder="Informe o motivo da alteraÃ§Ã£o..." required></textarea>
+                                placeholder="Informe o motivo da alteração..." required></textarea>
                         </div>
                     </div>
 
@@ -482,7 +482,7 @@
                         </button>
 
                         <button type="submit" class="btn btn-danger fw-bold">
-                            Salvar correÃ§Ã£o
+                            Salvar correção
                         </button>
                     </div>
                 </form>
@@ -498,7 +498,7 @@
                         <span class="page-label">Auditoria</span>
 
                         <h2 id="tituloModalHistorico" class="modal-title fs-5">
-                            HistÃ³rico de ajustes
+                            Histórico de ajustes
                         </h2>
                     </div>
 
@@ -516,8 +516,8 @@
                             <thead>
                                 <tr>
                                     <th>Data</th>
-                                    <th>AlteraÃ§Ã£o</th>
-                                    <th>UsuÃ¡rio</th>
+                                    <th>Alteração</th>
+                                    <th>Usuário</th>
                                     <th>Motivo</th>
                                 </tr>
                             </thead>
@@ -561,7 +561,7 @@
                 <form id="formCancelamentoAula">
                     <div class="modal-body">
                         <div class="alert alert-warning">
-                            O cancelamento serÃ¡ preservado no histÃ³rico e nÃ£o poderÃ¡ ser desfeito nesta versÃ£o.
+                            O cancelamento será preservado no histórico e não poderá ser desfeito nesta versão.
                         </div>
 
                         <div>
@@ -570,7 +570,7 @@
                             </label>
 
                             <textarea id="motivoCancelamentoAula" class="form-control" rows="4" maxlength="255"
-                                placeholder="Ex.: Professor ausente, alteraÃ§Ã£o de calendÃ¡rio..." required></textarea>
+                                placeholder="Ex.: Professor ausente, alteração de calendário..." required></textarea>
                         </div>
                     </div>
 

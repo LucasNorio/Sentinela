@@ -1,3 +1,5 @@
+import re
+
 from flask import Blueprint, jsonify, request
 from mysql.connector import Error, IntegrityError
 from database import obter_conexao

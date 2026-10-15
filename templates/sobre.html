@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
@@ -60,11 +60,11 @@
         </a>
 
         <a href="/gestao-academica">
-          GestÃ£o AcadÃªmica
+          Gestão Acadêmica
         </a>
 
         <a href="/administracao">
-          AdministraÃ§Ã£o
+          Administração
         </a>
 
         <a
@@ -77,7 +77,7 @@
 
       <div class="sidebar-footer">
         <span>SENAI Botucatu</span>
-        <small>VersÃ£o 0.3.0</small>
+        <small>Versão 0.4.0</small>
       </div>
 
     </aside>
@@ -88,7 +88,7 @@
         <div>
 
           <span class="page-label">
-            ApresentaÃ§Ã£o
+            Apresentação
           </span>
 
           <h1 class="title">
@@ -96,8 +96,8 @@
           </h1>
 
           <p class="paragrafo1">
-            ConheÃ§a a proposta, os objetivos e o funcionamento
-            da versÃ£o 0.3.0 do projeto Sentinela.
+            Conheça a proposta, os objetivos e o funcionamento
+            da versão 0.4.0 do projeto Sentinela.
           </p>
 
         </div>
@@ -116,14 +116,14 @@
           </h2>
 
           <p>
-            Sistema de chamada automÃ¡tica e monitoramento
+            Sistema de chamada automática e monitoramento
             escolar baseado em RFID.
           </p>
 
         </div>
 
         <span class="counter-badge">
-          VersÃ£o 0.3.0
+          Versão 0.4.0
         </span>
 
       </section>
@@ -142,12 +142,12 @@
             </h2>
 
             <p class="about-text">
-              O Sentinela busca reduzir a dependÃªncia do controle
-              manual de presenÃ§a e facilitar o acompanhamento da
-              movimentaÃ§Ã£o de alunos dentro da unidade escolar.
+              O Sentinela busca reduzir a dependência do controle
+              manual de presença e facilitar o acompanhamento da
+              movimentação de alunos dentro da unidade escolar.
               Registros RFID podem ser associados a alunos,
               leitores e ambientes, formando uma base de eventos
-              que posteriormente pode ser interpretada pelo mÃ³dulo
+              que posteriormente pode ser interpretada pelo módulo
               de chamada.
             </p>
 
@@ -162,17 +162,16 @@
             </span>
 
             <h2 class="about-title">
-              Objetivo da versÃ£o 0.3.0
+              Objetivo da versão 0.4.0
             </h2>
 
             <p class="about-text">
-              A versÃ£o 0.3.0 introduz o nÃºcleo de chamada e
-              presenÃ§a escolar do Sentinela. O sistema passa a
-              permitir o planejamento de aulas, geraÃ§Ã£o de chamadas,
-              interpretaÃ§Ã£o de registros RFID, classificaÃ§Ã£o de
-              presenÃ§a, encerramento automÃ¡tico de chamadas,
-              correÃ§Ãµes manuais auditadas e acesso dos professores
-              somente Ã s turmas Ã s quais estÃ£o vinculados.
+              A versão 0.4.0 consolida o módulo de chamada e adiciona
+              a integração física com leitores RFID baseados em ESP32
+              e MFRC522. As leituras são enviadas ao backend Flask pela
+              rede Wi-Fi e podem registrar a presença dos alunos em
+              aulas em andamento, preservando as regras de horário,
+              ambiente, tolerância e controle de acesso já existentes.
             </p>
 
           </article>
@@ -194,45 +193,45 @@
             </h2>
 
             <p class="about-text">
-              Uma aula Ã© criada para uma turma, professor e
-              ambiente. A chamada gera registros de presenÃ§a para
+              Uma aula é criada para uma turma, professor e
+              ambiente. A chamada gera registros de presença para
               os alunos ativos da turma. Durante a aula, registros
-              RFID compatÃ­veis com o aluno, ambiente e janela de
-              horÃ¡rio podem ser processados automaticamente como
-              presenÃ§a ou atraso. Ao finalizar a aula, alunos ainda
-              pendentes sÃ£o classificados como ausentes.
+              RFID compatíveis com o aluno, ambiente e janela de
+              horário podem ser processados automaticamente como
+              presença ou atraso. Ao finalizar a aula, alunos ainda
+              pendentes são classificados como ausentes.
             </p>
 
             <div class="about-flow mt-4">
 
               <div>
                 <strong>1</strong>
-                <span>Aula Ã© programada</span>
+                <span>Aula é programada</span>
               </div>
 
               <div>
                 <strong>2</strong>
-                <span>Chamada Ã© gerada</span>
+                <span>Chamada é gerada</span>
               </div>
 
               <div>
                 <strong>3</strong>
-                <span>Aula Ã© iniciada</span>
+                <span>Aula é iniciada</span>
               </div>
 
               <div>
                 <strong>4</strong>
-                <span>Registros RFID sÃ£o processados</span>
+                <span>Registros RFID são processados</span>
               </div>
 
               <div>
                 <strong>5</strong>
-                <span>PresenÃ§a Ã© classificada</span>
+                <span>Presença é classificada</span>
               </div>
 
               <div>
                 <strong>6</strong>
-                <span>Chamada Ã© finalizada</span>
+                <span>Chamada é finalizada</span>
               </div>
 
             </div>
@@ -244,18 +243,18 @@
           <article class="content-card h-100">
 
             <span class="page-label">
-              PresenÃ§a
+              Presença
             </span>
 
             <h2 class="about-title">
-              SituaÃ§Ãµes de presenÃ§a
+              Situações de presença
             </h2>
 
             <p class="about-text">
-              Cada aluno possui uma situaÃ§Ã£o individual dentro da
+              Cada aluno possui uma situação individual dentro da
               chamada. O estado pode ser definido automaticamente
-              pelo sistema ou alterado manualmente por um usuÃ¡rio
-              autorizado, mantendo registro da correÃ§Ã£o.
+              pelo sistema ou alterado manualmente por um usuário
+              autorizado, mantendo registro da correção.
             </p>
 
             <div class="about-users mt-4">
@@ -290,8 +289,8 @@
               As aulas possuem estados controlados para preservar
               a integridade da chamada. Uma aula nasce como
               programada, pode ser iniciada e posteriormente
-              finalizada. Aulas programadas tambÃ©m podem ser
-              canceladas antes de seu inÃ­cio.
+              finalizada. Aulas programadas também podem ser
+              canceladas antes de seu início.
             </p>
 
             <div class="about-users mt-4">
@@ -312,20 +311,20 @@
             </span>
 
             <h2 class="about-title">
-              CorreÃ§Ãµes de presenÃ§a
+              Correções de presença
             </h2>
 
             <p class="about-text">
-              Professores e usuÃ¡rios autorizados podem corrigir
-              situaÃ§Ãµes de presenÃ§a quando necessÃ¡rio. Cada
-              alteraÃ§Ã£o registra o estado anterior, o novo estado,
-              o usuÃ¡rio responsÃ¡vel, a data da modificaÃ§Ã£o e o
+              Professores e usuários autorizados podem corrigir
+              situações de presença quando necessário. Cada
+              alteração registra o estado anterior, o novo estado,
+              o usuário responsável, a data da modificação e o
               motivo informado.
             </p>
 
             <p class="about-text mb-0">
-              O histÃ³rico de ajustes Ã© preservado para permitir
-              rastreabilidade das alteraÃ§Ãµes realizadas na chamada.
+              O histórico de ajustes é preservado para permitir
+              rastreabilidade das alterações realizadas na chamada.
             </p>
 
           </article>
@@ -340,11 +339,11 @@
           <div>
 
             <span class="page-label">
-              MÃ³dulos
+              Módulos
             </span>
 
             <h2>
-              Ãreas disponÃ­veis na versÃ£o 0.3.0
+              Áreas disponíveis na versão 0.4.0
             </h2>
 
           </div>
@@ -363,9 +362,9 @@
                 </h3>
 
                 <p>
-                  Planejamento de aulas, geraÃ§Ã£o de chamadas,
-                  processamento RFID, finalizaÃ§Ã£o e acompanhamento
-                  da presenÃ§a dos alunos.
+                  Planejamento de aulas, geração de chamadas,
+                  processamento RFID, finalização e acompanhamento
+                  da presença dos alunos.
                 </p>
 
               </div>
@@ -383,7 +382,7 @@
                 </h3>
 
                 <p>
-                  Gerenciamento de alunos, turmas e vÃ­nculos com
+                  Gerenciamento de alunos, turmas e vínculos com
                   tags RFID.
                 </p>
 
@@ -416,11 +415,11 @@
               <div>
 
                 <h3>
-                  GestÃ£o AcadÃªmica
+                  Gestão Acadêmica
                 </h3>
 
                 <p>
-                  Cursos, turmas e vÃ­nculos de professores e
+                  Cursos, turmas e vínculos de professores e
                   auxiliares com as turmas.
                 </p>
 
@@ -435,11 +434,11 @@
               <div>
 
                 <h3>
-                  GestÃ£o de Ambientes
+                  Gestão de Ambientes
                 </h3>
 
                 <p>
-                  Cadastro e gerenciamento dos espaÃ§os fÃ­sicos
+                  Cadastro e gerenciamento dos espaços físicos
                   utilizados pelo sistema.
                 </p>
 
@@ -458,7 +457,7 @@
                 </h3>
 
                 <p>
-                  Cadastro dos leitores e associaÃ§Ã£o com os
+                  Cadastro dos leitores e associação com os
                   ambientes monitorados.
                 </p>
 
@@ -473,7 +472,7 @@
               <div>
 
                 <h3>
-                  HistÃ³rico RFID
+                  Histórico RFID
                 </h3>
 
                 <p>
@@ -492,12 +491,12 @@
               <div>
 
                 <h3>
-                  GestÃ£o de UsuÃ¡rios
+                  Gestão de Usuários
                 </h3>
 
                 <p>
-                  Cadastro, ediÃ§Ã£o, inativaÃ§Ã£o, reativaÃ§Ã£o,
-                  redefiniÃ§Ã£o de senha e vÃ­nculo entre contas e
+                  Cadastro, edição, inativação, reativação,
+                  redefinição de senha e vínculo entre contas e
                   professores.
                 </p>
 
@@ -516,8 +515,8 @@
                 </h3>
 
                 <p>
-                  ProteÃ§Ã£o de pÃ¡ginas e APIs conforme o perfil e
-                  os vÃ­nculos acadÃªmicos do usuÃ¡rio autenticado.
+                  Proteção de páginas e APIs conforme o perfil e
+                  os vínculos acadêmicos do usuário autenticado.
                 </p>
 
               </div>
@@ -531,12 +530,12 @@
               <div>
 
                 <h3>
-                  CorreÃ§Ãµes e Auditoria
+                  Correções e Auditoria
                 </h3>
 
                 <p>
-                  Ajustes manuais de presenÃ§a com motivo e
-                  histÃ³rico das alteraÃ§Ãµes realizadas.
+                  Ajustes manuais de presença com motivo e
+                  histórico das alterações realizadas.
                 </p>
 
               </div>
@@ -554,7 +553,7 @@
                 </h3>
 
                 <p>
-                  VisualizaÃ§Ã£o dos ambientes e leitores registrados
+                  Visualização dos ambientes e leitores registrados
                   no Sentinela.
                 </p>
 
@@ -573,7 +572,7 @@
                 </h3>
 
                 <p>
-                  Acesso aos mÃ³dulos administrativos e informaÃ§Ãµes
+                  Acesso aos módulos administrativos e informações
                   gerais do sistema.
                 </p>
 
@@ -593,11 +592,11 @@
           <div>
 
             <span class="page-label">
-              v0.3.0
+              v0.4.0
             </span>
 
             <h2>
-              Recursos consolidados nesta versÃ£o
+              Recursos consolidados nesta versão
             </h2>
 
           </div>
@@ -616,8 +615,8 @@
                 </h3>
 
                 <p>
-                  Cadastro, ediÃ§Ã£o, ciclo de vida, cancelamento e
-                  validaÃ§Ã£o de conflitos de horÃ¡rio.
+                  Cadastro, edição, ciclo de vida, cancelamento e
+                  validação de conflitos de horário.
                 </p>
 
               </div>
@@ -631,12 +630,12 @@
               <div>
 
                 <h3>
-                  PresenÃ§a automÃ¡tica
+                  Presença automática
                 </h3>
 
                 <p>
-                  InterpretaÃ§Ã£o de registros RFID conforme aluno,
-                  ambiente, horÃ¡rio e tolerÃ¢ncia da aula.
+                  Interpretação de registros RFID conforme aluno,
+                  ambiente, horário e tolerância da aula.
                 </p>
 
               </div>
@@ -654,8 +653,8 @@
                 </h3>
 
                 <p>
-                  Acesso Ã s chamadas limitado Ã s turmas em que o
-                  professor possui vÃ­nculo acadÃªmico ativo.
+                  Acesso às chamadas limitado às turmas em que o
+                  professor possui vínculo acadêmico ativo.
                 </p>
 
               </div>
@@ -673,8 +672,8 @@
                 </h3>
 
                 <p>
-                  HistÃ³rico de correÃ§Ãµes preservado sem sobrescrever
-                  as alteraÃ§Ãµes anteriores.
+                  Histórico de correções preservado sem sobrescrever
+                  as alterações anteriores.
                 </p>
 
               </div>
@@ -693,7 +692,7 @@
           <div>
 
             <span class="page-label">
-              SeguranÃ§a e integridade
+              Segurança e integridade
             </span>
 
             <h2>
@@ -712,11 +711,11 @@
               <div>
 
                 <h3>
-                  AutenticaÃ§Ã£o
+                  Autenticação
                 </h3>
 
                 <p>
-                  Login utilizando usuÃ¡rios armazenados no banco
+                  Login utilizando usuários armazenados no banco
                   de dados e senhas protegidas por hash.
                 </p>
 
@@ -731,12 +730,12 @@
               <div>
 
                 <h3>
-                  SessÃµes
+                  Sessões
                 </h3>
 
                 <p>
-                  IdentificaÃ§Ã£o do usuÃ¡rio autenticado por sessÃ£o
-                  durante o uso da aplicaÃ§Ã£o.
+                  Identificação do usuário autenticado por sessão
+                  durante o uso da aplicação.
                 </p>
 
               </div>
@@ -750,12 +749,12 @@
               <div>
 
                 <h3>
-                  PermissÃµes
+                  Permissões
                 </h3>
 
                 <p>
-                  Administrador, coordenaÃ§Ã£o, secretaria e
-                  professor possuem diferentes nÃ­veis de acesso.
+                  Administrador, coordenação, secretaria e
+                  professor possuem diferentes níveis de acesso.
                 </p>
 
               </div>
@@ -769,12 +768,12 @@
               <div>
 
                 <h3>
-                  PreservaÃ§Ã£o de dados
+                  Preservação de dados
                 </h3>
 
                 <p>
-                  Registros importantes sÃ£o inativados, cancelados
-                  ou mantidos em histÃ³rico em vez de removidos.
+                  Registros importantes são inativados, cancelados
+                  ou mantidos em histórico em vez de removidos.
                 </p>
 
               </div>
@@ -797,7 +796,7 @@
             </span>
 
             <h2>
-              Estado da integraÃ§Ã£o fÃ­sica
+              Estado da integração física
             </h2>
 
           </div>
@@ -805,13 +804,13 @@
         </div>
 
         <p class="about-text mb-0">
-          A versÃ£o 0.3.0 possui o backend e as regras necessÃ¡rias
-          para receber e interpretar registros RFID, permitindo
-          testar o fluxo completo pela API. A integraÃ§Ã£o com o
-          hardware fÃ­sico serÃ¡ realizada em uma etapa posterior do
-          projeto. A arquitetura atual foi organizada para receber
-          essa integraÃ§Ã£o sem exigir uma reformulaÃ§Ã£o do mÃ³dulo de
-          chamada.
+          A versão 0.4.0 integra leitores RFID físicos baseados em
+          ESP32 e MFRC522 ao backend Flask através da rede Wi-Fi.
+          Cada leitor possui um código de identificação e envia o UID
+          da tag ao endpoint do Sentinela. Quando existe uma aula em
+          andamento no ambiente correspondente, a leitura pode ser
+          utilizada para registrar a presença do aluno automaticamente.
+          O leitor também fornece retorno local por LED e buzzer.
         </p>
 
       </section>
@@ -844,8 +843,12 @@
           <span>CSS</span>
           <span>Bootstrap</span>
           <span>Werkzeug Security</span>
-          <span>SessÃµes Flask</span>
+          <span>Sessões Flask</span>
           <span>RFID</span>
+          <span>ESP32</span>
+          <span>MFRC522</span>
+          <span>Wi-Fi</span>
+          <span>HTTP/JSON</span>
 
         </div>
 

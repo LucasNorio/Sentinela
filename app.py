@@ -27,7 +27,6 @@ from routes.aulas_routes import aulas_bp
 from routes.chamadas_routes import chamadas_bp
 from routes.presencas_routes import presencas_bp
 
-import routes.leitores_routes as leitores_module
 
 
 app = Flask(

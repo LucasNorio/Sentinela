@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="pt-BR">
   <head>
     <meta charset="utf-8" />
@@ -36,14 +36,14 @@
           <a href="/chamada">Chamada</a>
           <a href="/cadastro-professores">Cadastro de Professores</a>
           <a href="/cadastro-alunos">Cadastro de Alunos</a>
-          <a href="/gestao-academica">GestÃ£o AcadÃªmica</a>
-          <a href="/administracao">AdministraÃ§Ã£o</a>
+          <a href="/gestao-academica">Gestão Acadêmica</a>
+          <a href="/administracao">Administração</a>
           <a href="/sobre">Sobre</a>
         </nav>
 
         <div class="sidebar-footer">
           <span>SENAI Botucatu</span>
-          <small>VersÃ£o 0.3.0</small>
+          <small>Versão 0.4.0</small>
         </div>
       </aside>
 
@@ -51,10 +51,10 @@
         <div class="page-header">
           <div>
             <span class="page-label">Ambientes</span>
-            <h1>GestÃ£o de Ambientes</h1>
+            <h1>Gestão de Ambientes</h1>
             <p class="paragrafo1">
-              Cadastre e gerencie salas, laboratÃ³rios, portarias, oficinas e
-              demais espaÃ§os fÃ­sicos monitorados pelo Sentinela.
+              Cadastre e gerencie salas, laboratórios, portarias, oficinas e
+              demais espaços físicos monitorados pelo Sentinela.
             </p>
           </div>
         </div>
@@ -81,21 +81,21 @@
                     id="nomeAmbiente"
                     type="text"
                     class="form-control"
-                    placeholder="Ex: LaboratÃ³rio de InformÃ¡tica 1"
+                    placeholder="Ex: Laboratório de Informática 1"
                     required
                   />
                 </div>
 
                 <div class="mb-3">
                   <label for="blocoAmbiente" class="form-label fw-semibold">
-                    Bloco / localizaÃ§Ã£o
+                    Bloco / localização
                   </label>
 
                   <input
                     id="blocoAmbiente"
                     type="text"
                     class="form-control"
-                    placeholder="Ex: Bloco A, TÃ©rreo, Corredor 2"
+                    placeholder="Ex: Bloco A, Térreo, Corredor 2"
                     required
                   />
                 </div>
@@ -109,13 +109,13 @@
                     <option value="">Selecione um tipo</option>
                     <option value="Portaria">Portaria</option>
                     <option value="Sala">Sala</option>
-                    <option value="LaboratÃ³rio">LaboratÃ³rio</option>
+                    <option value="Laboratório">Laboratório</option>
                     <option value="Biblioteca">Biblioteca</option>
                     <option value="Oficina">Oficina</option>
-                    <option value="PÃ¡tio">PÃ¡tio</option>
+                    <option value="Pátio">Pátio</option>
                     <option value="Secretaria">Secretaria</option>
-                    <option value="CoordenaÃ§Ã£o">CoordenaÃ§Ã£o</option>
-                    <option value="Ãrea comum">Ãrea comum</option>
+                    <option value="Coordenação">Coordenação</option>
+                    <option value="Área comum">Área comum</option>
                     <option value="Outro">Outro</option>
                   </select>
                 </div>
@@ -144,7 +144,7 @@
 
                   <select id="statusAmbiente" class="form-select" required>
                     <option value="Ativo">Ativo</option>
-                    <option value="ManutenÃ§Ã£o">ManutenÃ§Ã£o</option>
+                    <option value="Manutenção">Manutenção</option>
                     <option value="Inativo">Inativo</option>
                   </select>
                 </div>
@@ -159,7 +159,7 @@
                     class="btn btn-outline-secondary"
                     type="button"
                   >
-                    Limpar formulÃ¡rio
+                    Limpar formulário
                   </button>
                 </div>
               </form>
@@ -193,7 +193,7 @@
                   <select id="filtroStatusAmbiente" class="form-select">
                     <option value="Todos">Todos</option>
                     <option value="Ativo">Ativos</option>
-                    <option value="ManutenÃ§Ã£o">Em manutenÃ§Ã£o</option>
+                    <option value="Manutenção">Em manutenção</option>
                     <option value="Inativo">Inativos</option>
                   </select>
                 </div>
@@ -208,7 +208,7 @@
                       <th>Tipo</th>
                       <th>Capacidade</th>
                       <th>Status</th>
-                      <th>AÃ§Ãµes</th>
+                      <th>Ações</th>
                     </tr>
                   </thead>
 

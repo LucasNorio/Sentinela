@@ -1,9 +1,9 @@
-﻿USE sentinela_db;
+USE sentinela_db;
 
 
 -- ============================================================
 -- SENTINELA v0.4.0
--- MigraÃ§Ã£o: mÃ³dulo de chamada e presenÃ§a escolar
+-- Migração: módulo de chamada e presença escolar
 --
 -- Origem esperada: Sentinela v0.2.0
 -- Destino: SENTINELA v0.4.0
@@ -13,7 +13,7 @@
 
 
 -- ============================================================
--- 1. VÃNCULO ENTRE USUÃRIO E PROFESSOR
+-- 1. VÍNCULO ENTRE USUÁRIO E PROFESSOR
 -- ============================================================
 
 ALTER TABLE usuario
@@ -33,12 +33,12 @@ ON DELETE RESTRICT;
 
 
 -- ============================================================
--- 2. FUNÃ‡ÃƒO DO PROFESSOR NA TURMA
+-- 2. FUNÇÃO DO PROFESSOR NA TURMA
 -- ============================================================
 
 ALTER TABLE professor_turma
 ADD COLUMN funcao ENUM(
-    'ResponsÃ¡vel',
+    'Responsável',
     'Professor',
     'Auxiliar'
 ) NOT NULL DEFAULT 'Professor'
@@ -123,7 +123,7 @@ CREATE TABLE aula (
 
 
 -- ============================================================
--- 4. PRESENÃ‡AS
+-- 4. PRESENÇAS
 -- ============================================================
 
 CREATE TABLE presenca (
@@ -145,7 +145,7 @@ CREATE TABLE presenca (
     origem ENUM(
         'Sistema',
         'RFID',
-        'CorreÃ§Ã£o'
+        'Correção'
     ) NOT NULL DEFAULT 'Sistema',
 
     horario_detectado DATETIME NULL,
@@ -198,7 +198,7 @@ CREATE TABLE presenca (
 
 
 -- ============================================================
--- 5. AUDITORIA DE CORREÃ‡Ã•ES DE PRESENÃ‡A
+-- 5. AUDITORIA DE CORREÇÕES DE PRESENÇA
 -- ============================================================
 
 CREATE TABLE ajuste_presenca (

@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="pt-BR">
   <head>
     <meta charset="utf-8" />
@@ -36,14 +36,14 @@
           <a href="/chamada">Chamada</a>
           <a href="/cadastro-professores">Cadastro de Professores</a>
           <a href="/cadastro-alunos">Cadastro de Alunos</a>
-          <a href="/gestao-academica">GestÃ£o AcadÃªmica</a>
-          <a href="/administracao">AdministraÃ§Ã£o</a>
+          <a href="/gestao-academica">Gestão Acadêmica</a>
+          <a href="/administracao">Administração</a>
           <a href="/sobre">Sobre</a>
         </nav>
 
         <div class="sidebar-footer">
           <span>SENAI Botucatu</span>
-          <small>VersÃ£o 0.3.0</small>
+          <small>Versão 0.4.0</small>
         </div>
       </aside>
 
@@ -51,7 +51,7 @@
         <div class="page-header">
           <div>
             <span class="page-label">Leitores RFID</span>
-            <h1>GestÃ£o de Leitores RFID</h1>
+            <h1>Gestão de Leitores RFID</h1>
             <p class="paragrafo1">
               Cadastre e gerencie os leitores RFID instalados nos ambientes
               monitorados pelo Sentinela.
@@ -88,7 +88,7 @@
 
                 <div class="mb-3">
                   <label for="codigoLeitor" class="form-label fw-semibold">
-                    CÃ³digo de identificaÃ§Ã£o
+                    Código de identificação
                   </label>
 
                   <input
@@ -118,8 +118,8 @@
                   <select id="tipoLeitor" class="form-select" required>
                     <option value="Interno">Interno</option>
                     <option value="Entrada">Entrada</option>
-                    <option value="SaÃ­da">SaÃ­da</option>
-                    <option value="Entrada/SaÃ­da">Entrada/SaÃ­da</option>
+                    <option value="Saída">Saída</option>
+                    <option value="Entrada/Saída">Entrada/Saída</option>
                     <option value="Outro">Outro</option>
                   </select>
                 </div>
@@ -131,7 +131,7 @@
 
                   <select id="statusLeitor" class="form-select" required>
                     <option value="Ativo">Ativo</option>
-                    <option value="ManutenÃ§Ã£o">ManutenÃ§Ã£o</option>
+                    <option value="Manutenção">Manutenção</option>
                     <option value="Inativo">Inativo</option>
                   </select>
                 </div>
@@ -146,7 +146,7 @@
                     class="btn btn-outline-secondary"
                     type="button"
                   >
-                    Limpar formulÃ¡rio
+                    Limpar formulário
                   </button>
                 </div>
               </form>
@@ -172,7 +172,7 @@
                     id="buscaLeitor"
                     type="search"
                     class="form-control"
-                    placeholder="Buscar por nome, cÃ³digo, ambiente, tipo ou status..."
+                    placeholder="Buscar por nome, código, ambiente, tipo ou status..."
                   />
                 </div>
 
@@ -180,7 +180,7 @@
                   <select id="filtroStatusLeitor" class="form-select">
                     <option value="Todos">Todos</option>
                     <option value="Ativo">Ativos</option>
-                    <option value="ManutenÃ§Ã£o">Em manutenÃ§Ã£o</option>
+                    <option value="Manutenção">Em manutenção</option>
                     <option value="Inativo">Inativos</option>
                   </select>
                 </div>
@@ -191,11 +191,11 @@
                   <thead>
                     <tr>
                       <th>Leitor</th>
-                      <th>CÃ³digo</th>
+                      <th>Código</th>
                       <th>Ambiente</th>
                       <th>Tipo</th>
                       <th>Status</th>
-                      <th>AÃ§Ãµes</th>
+                      <th>Ações</th>
                     </tr>
                   </thead>
 

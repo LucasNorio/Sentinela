@@ -1,3 +1,26 @@
+## [0.4.1] - 2026-10-15
+
+### Corrigido
+
+- Corrigida a codificação UTF-8 de templates HTML.
+- Corrigidos valores acentuados utilizados em formulários e validações.
+- Corrigida a codificação de valores ENUM na migration SQL.
+- Corrigida a ausência do import `re` no módulo de leitores RFID.
+- Restaurado o funcionamento dos cadastros de alunos, professores,
+  ambientes, usuários e leitores.
+
+### Melhorado
+
+- Padronização da codificação dos arquivos-fonte.
+- Inclusão de configurações de editor para preservar UTF-8.
+- Limpeza de arquivos temporários da distribuição pública.
+
+### Observações
+
+- Mantida a integração ESP32, MFRC522 e Wi-Fi.
+- Mantido o processamento RFID integrado à chamada automática.
+- A compatibilidade com macOS permanece em revisão.
+
 # Changelog
 
 Todas as mudanças relevantes do projeto Sentinela serão documentadas neste arquivo.
