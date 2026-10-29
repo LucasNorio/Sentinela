@@ -1,29 +1,40 @@
-## [0.4.1] - 2026-10-15
-
-### Corrigido
-
-- Corrigida a codificação UTF-8 de templates HTML.
-- Corrigidos valores acentuados utilizados em formulários e validações.
-- Corrigida a codificação de valores ENUM na migration SQL.
-- Corrigida a ausência do import `re` no módulo de leitores RFID.
-- Restaurado o funcionamento dos cadastros de alunos, professores,
-  ambientes, usuários e leitores.
-
-### Melhorado
-
-- Padronização da codificação dos arquivos-fonte.
-- Inclusão de configurações de editor para preservar UTF-8.
-- Limpeza de arquivos temporários da distribuição pública.
-
-### Observações
-
-- Mantida a integração ESP32, MFRC522 e Wi-Fi.
-- Mantido o processamento RFID integrado à chamada automática.
-- A compatibilidade com macOS permanece em revisão.
-
 # Changelog
 
 Todas as mudanças relevantes do projeto Sentinela serão documentadas neste arquivo.
+
+---
+
+## [0.5.0] - 2026-10-22
+
+### Adicionado
+
+- Relatório de frequência por turma com período selecionável, prévia e PDF.
+- Relatório individual com histórico de aulas finalizadas e PDF.
+- Emissão com permissões por perfil e vínculo acadêmico com a turma.
+- Testes automatizados dos relatórios e da paginação (22 casos).
+- Arquivo `.env.example` e notas da release `RELEASE_NOTES_v0.5.0.md`.
+
+### Corrigido e aperfeiçoado
+
+- Percentuais ficam indisponíveis (`N/D`) quando existem registros insuficientes para as aulas finalizadas.
+- Presenças pendentes em aulas finalizadas impedem a emissão do relatório.
+- Paginação e disposição de legenda, observações, assinatura e rodapé dos PDFs.
+- Preparação pública: exclusão de credenciais e ambientes virtuais; execução local sem depuração por padrão; senhas iniciais definidas pelo operador.
+
+### Observações
+
+- Nenhuma migration SQL adicional em relação à v0.4.1.
+- Dashboard interativo permanece fora do escopo desta versão.
+
+---
+
+## [0.4.1] - Correções após a v0.4.0
+
+### Corrigido
+
+- Codificação UTF-8 em templates e migration de chamada/presença.
+- Importação necessária no módulo de cadastro de leitores RFID.
+- Padronização de codificação com `.editorconfig` e `.gitattributes`.
 
 ---
 

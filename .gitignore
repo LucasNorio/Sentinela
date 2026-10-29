@@ -53,3 +53,13 @@ htmlcov/
 
 # Arquivos locais adicionais
 *.bak
+
+# Pacotes locais de distribuição e patches
+*.zip
+*.7z
+
+# Backups e dados de bancos locais
+*.sql.gz
+*.sqlite
+*.sqlite3
+*.db

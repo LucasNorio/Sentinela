@@ -71,6 +71,7 @@ function obterRotasPermitidasPorPerfil(perfil) {
     "/mapa",
     "/historico",
     "/sobre",
+    "/relatorios",
   ];
 
   const rotasGestao = [

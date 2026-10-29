@@ -1,3 +1,5 @@
+import os
+
 from flask import (
     Flask,
     render_template,
@@ -26,6 +28,7 @@ from routes.usuarios_routes import usuarios_bp
 from routes.aulas_routes import aulas_bp
 from routes.chamadas_routes import chamadas_bp
 from routes.presencas_routes import presencas_bp
+from routes.relatorios_routes import relatorios_bp
 
 
 
@@ -51,6 +54,7 @@ app.register_blueprint(usuarios_bp)
 app.register_blueprint(aulas_bp)
 app.register_blueprint(chamadas_bp)
 app.register_blueprint(presencas_bp)
+app.register_blueprint(relatorios_bp)
 
 
 TODOS_PERFIS = {
@@ -82,6 +86,7 @@ PAGINAS_PERMISSOES = {
     '/mapa': TODOS_PERFIS,
     '/historico': TODOS_PERFIS,
     '/sobre': TODOS_PERFIS,
+    '/relatorios': TODOS_PERFIS,
 
     '/chamada': PERFIS_CHAMADA,
 
@@ -124,6 +129,9 @@ def api_permitida(
 ):
     if perfil == 'Administrador':
         return True
+
+    if caminho.startswith('/api/relatorios'):
+        return metodo == 'GET' and perfil in TODOS_PERFIS
 
     if caminho.startswith('/api/dashboard'):
         return perfil in TODOS_PERFIS
@@ -390,6 +398,12 @@ def chamada():
     )
 
 
+@app.route('/relatorios')
+@login_obrigatorio
+def relatorios():
+    return render_template('relatorios.html')
+
+
 @app.route('/sobre')
 @login_obrigatorio
 def sobre():
@@ -413,4 +427,10 @@ def status():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    # Servidor de desenvolvimento: acesso em rede deve ser ativado explicitamente
+    # para os testes físicos com ESP32. Nunca habilite debug na rede.
+    app.run(
+        host=os.getenv('FLASK_HOST', '127.0.0.1'),
+        port=int(os.getenv('FLASK_PORT', '5000')),
+        debug=os.getenv('FLASK_DEBUG', '0').strip().lower() in ('1', 'true', 'yes'),
+    )

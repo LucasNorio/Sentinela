@@ -1,805 +1,288 @@
-Sentinela v0.4.0
+# Sentinela — v0.5.0
 
-Sistema de chamada automática e monitoramento escolar baseado em RFID.
+**Sistema acadêmico de monitoramento RFID, chamada automática e relatórios de frequência.**
 
-O Sentinela é um projeto de TCC desenvolvido para auxiliar no controle de presença e no acompanhamento da movimentação de alunos em ambiente escolar.
+O Sentinela é um projeto de TCC de Desenvolvimento de Sistemas. Ele relaciona alunos, turmas, professores, ambientes, aulas e leituras RFID para registrar presença e permitir acompanhamento acadêmico. É uma aplicação **em desenvolvimento, destinada a testes e demonstração**, não um produto homologado para uso em produção.
 
-A versão 0.4.0 amplia o núcleo de chamada automática com a integração física dos leitores RFID baseados em ESP32. A partir desta versão, o Sentinela passa a possuir comunicação entre os leitores físicos e o backend Flask, permitindo o envio automático das leituras RFID para processamento pelo sistema.
+## Novidades da v0.5.0
 
-Além das funcionalidades acadêmicas, RFID e de autenticação desenvolvidas nas versões anteriores, a v0.4.0 mantém o gerenciamento de aulas, geração de chamadas, processamento de registros RFID, classificação automática de presença, correções manuais auditadas e controle de acesso de professores, adicionando a comunicação com leitores RFID físicos.
+- **Relatório de frequência por turma:** filtro por turma e período, prévia com presenças, atrasos, faltas, justificativas e cobertura de registros; visualização e download em PDF.
+- **Relatório individual:** filtro por turma, aluno e período; histórico de aulas finalizadas com situação e origem dos registros; emissão em PDF.
+- **Conferência de dados:** quando o aluno possui menos registros de presença do que aulas finalizadas, o percentual fica `N/D` e o documento sinaliza a necessidade de conferência. Ausências de registros não são convertidas automaticamente em faltas.
+- **Paginação dos PDFs:** cabeçalho, tabela, notas, assinatura e rodapé distribuídos em páginas sem folhas extras desnecessárias em cenários testados.
+- **Testes automatizados:** 22 testes de regras, acesso, PDFs e paginação, utilizando dados simulados (não exigem MySQL ativo).
 
-A integração física RFID foi adicionada nesta versão. Os leitores utilizam ESP32, MFRC522 e Wi-Fi para enviar as leituras ao backend Flask. Os testes físicos continuam sendo realizados em ambiente controlado.
+A versão anterior, **v0.4.1**, corrigiu problemas de codificação UTF-8 e do cadastro de leitores RFID. A v0.5.0 não introduz alterações no esquema SQL em relação à v0.4.1.
 
-Funcionalidades da versão 0.4.0
+## Principais funcionalidades
 
-Chamada e presença escolar
+- Autenticação, sessões e perfis `Administrador`, `Coordenação`, `Secretaria` e `Professor`.
+- Gestão acadêmica de cursos, turmas, alunos, professores e vínculos com turmas.
+- Cadastro de ambientes, leitores e tags RFID, preservando eventos de leitura no histórico.
+- Planejamento de aulas, controle de conflitos, geração, abertura e finalização de chamadas.
+- Processamento de leituras RFID, classificação de presença/atraso e fechamento das pendências como ausências quando a chamada é finalizada.
+- Correção manual de presença com motivo e trilha de auditoria.
+- Consulta e emissão dos dois modelos de relatórios acadêmicos, com controle de acesso por perfil e vínculo com a turma.
+- Firmware de referência para **ESP32 + MFRC522**, com comunicação HTTP/JSON via rede Wi-Fi.
 
-Cadastro de aulas
+> **Limites conhecidos:** não há histórico completo de ingresso e transferência de alunos entre turmas. Por isso, uma matrícula posterior à primeira aula pode gerar cobertura parcial e percentual `N/D`. A justificativa de ausência não é automaticamente computada como comparecimento. Os critérios precisam ser validados pela instituição antes de utilizar relatórios como documentos oficiais.
 
-Associação da aula com:
+## Tecnologias
 
-turma
+**Backend:** Python, Flask, MySQL, `mysql-connector-python`, `python-dotenv`, Werkzeug e ReportLab.
 
-professor
+**Frontend:** HTML, CSS, JavaScript e Bootstrap 5.3.3 (via CDN).
 
-ambiente
+**Hardware experimental:** ESP32, leitor RFID MFRC522, Wi-Fi, LEDs e buzzer.
 
-data
+## Pré-requisitos
 
-horário
+- **Windows 10/11, macOS ou Linux** (exemplos de Linux para Ubuntu e Fedora).
+- **Python 3.11 ou superior**, com suporte a ambientes virtuais (`venv`).
+- **MySQL Server** instalado no computador ou acessível pela rede, com permissão para criar o banco inicialmente.
+- Navegador moderno e acesso à Internet para instalar dependências; o Bootstrap é carregado por CDN.
+- Para o leitor físico (opcional): ESP32, MFRC522 e rede local com conectividade ao servidor Flask.
 
-tolerância de atraso
+### Preparar o Python e o MySQL no sistema operacional
 
-Estados de aula:
+**Windows**
 
-Programada
+Instale o Python 3.11+ pelo [site oficial](https://www.python.org/downloads/windows/) e o MySQL Server pelo [MySQL Installer](https://dev.mysql.com/downloads/installer/). Durante a instalação, configure uma senha para o usuário administrador do MySQL. Verifique no PowerShell:
 
-Em andamento
+```powershell
+python --version
+```
 
-Finalizada
+Se `python` não for reconhecido, tente `py -3 --version` e use `py -3` no lugar de `python` **antes de ativar** o ambiente virtual. Para importar o banco, você pode usar o MySQL Command Line Client ou o MySQL Workbench.
 
-Cancelada
+**macOS (Homebrew)**
 
-Validação de conflitos de horário entre:
+Com o [Homebrew](https://brew.sh/) instalado, execute no Terminal:
 
-turmas
+```bash
+brew install python mysql
+brew services start mysql
+python3 --version
+mysql --version
+```
 
-professores
+A instalação do MySQL via Homebrew pode iniciar sem senha para o usuário `root` local. Configure a autenticação de acordo com o ambiente e não utilize o servidor sem proteção. Se o MySQL já estiver instalado por outro método, não é necessário reinstalá-lo.
 
-ambientes
+**Linux — Ubuntu**
 
-Geração de chamada para alunos ativos da turma
+```bash
+sudo apt update
+sudo apt install python3 python3-venv python3-pip mysql-server
+sudo systemctl enable --now mysql
+python3 --version
+mysql --version
+```
 
-Proteção contra geração duplicada de presença
+**Linux — Fedora**
 
-Início controlado da aula
+```bash
+sudo dnf install python3 python3-pip mysql-server
+sudo systemctl enable --now mysqld
+python3 --version
+mysql --version
+```
 
-Processamento de registros RFID
+Em outras distribuições, instale os pacotes equivalentes. Confira se a versão do Python é **3.11 ou superior**: o `python3` padrão de distribuições antigas pode ser anterior a essa versão. Os nomes dos pacotes e serviços MySQL também podem variar.
 
-Classificação automática de alunos como:
+## Instalação local (Windows, macOS e Linux)
 
-Presente
+Todos os comandos a seguir devem ser executados **na pasta raiz do projeto**, onde estão `app.py` e `requirements.txt`.
 
-Atrasado
+### 1. Criar o ambiente virtual e instalar as dependências
 
-Classificação automática como Ausente ao finalizar a chamada
+**Windows — PowerShell:**
 
-Situações de presença:
-
-Pendente
-
-Presente
-
-Atrasado
-
-Ausente
-
-Justificado
-
-Correção manual de presença
-
-Obrigatoriedade de motivo para correções
-
-Histórico de ajustes de presença
-
-Registro do usuário responsável pela correção
-
-Cancelamento de aulas programadas com motivo
-
-Preservação dos registros históricos de aulas canceladas
-
-Regras de processamento RFID
-
-Para que um registro RFID possa ser utilizado pela chamada, o sistema considera informações como:
-
-aluno associado ao registro
-
-ambiente da aula
-
-horário da leitura
-
-janela válida da aula
-
-tolerância configurada
-
-situação do aluno
-
-situação da tag RFID
-
-situação do leitor
-
-situação do ambiente
-
-tipo do registro RFID
-
-Registros inválidos ou de alerta não são utilizados para confirmar presença.
-
-Integração com hardware RFID
-
-A versão 0.4.0 inclui o código de firmware dos leitores RFID físicos em:
-
-arduino/sentinela_rfid/sentinela_rfid.ino
-
-Os leitores utilizam:
-
-ESP32
-
-MFRC522
-
-Wi-Fi
-
-HTTP/JSON
-
-LED verde
-
-LED vermelho
-
-buzzer
-
-Cada leitor possui um código próprio, enquanto a estrutura do firmware permanece compartilhada entre os dispositivos.
-
-O fluxo de comunicação é:
-
-Tag RFID
-   ↓
-MFRC522
-   ↓
-ESP32
-   ↓
-Wi-Fi
-   ↓
-POST /api/leitores-rfid/bip
-   ↓
-Backend Flask
-   ↓
-Registro RFID
-   ↓
-Processamento da chamada
-   ↓
-Resposta JSON
-   ↓
-LED / buzzer do leitor
-
-O leitor envia ao backend o código da tag e o código identificador do próprio leitor. A resposta do servidor é utilizada pelo ESP32 para indicar o resultado da operação.
-
-Em caso de presença efetivamente registrada, o leitor aciona o LED verde e um sinal sonoro. Em situações de leitura inválida, falha de comunicação ou ausência de registro de presença, o leitor utiliza o LED vermelho e o sinal sonoro correspondente.
-
-O código publicado no repositório não contém as credenciais reais da rede Wi-Fi nem o endereço IP real do servidor. Essas informações devem ser configuradas localmente antes do uso.
-
-A integração física está documentada e incluída no projeto, mas os testes dependem de um ambiente com os ESP32, leitores MFRC522, rede Wi-Fi e servidor Flask acessíveis entre si.
-
-Autenticação e controle de acesso
-
-O sistema possui autenticação utilizando usuários armazenados no MySQL.
-
-Recursos
-
-Login pelo banco de dados
-
-Senhas armazenadas com hash
-
-Sessões Flask
-
-Logout
-
-Registro do último login
-
-Proteção de páginas
-
-Proteção de APIs
-
-Gestão de usuários
-
-Inativação e reativação de usuários
-
-Redefinição de senha
-
-Controle de acesso conforme o perfil
-
-Perfis disponíveis
-
-Administrador
-
-Coordenação
-
-Secretaria
-
-Professor
-
-O perfil Professor pode ser associado a um cadastro acadêmico de professor através de usuario.id_professor.
-
-O acesso às chamadas é limitado às turmas nas quais o professor possui vínculo ativo como:
-
-Professor
-
-Auxiliar
-
-Dessa forma, um professor não pode consultar ou operar chamadas pertencentes a turmas às quais não está vinculado.
-
-Gestão acadêmica
-
-O Sentinela possui uma estrutura acadêmica utilizada pelos módulos de monitoramento e chamada.
-
-Recursos
-
-Cadastro de cursos
-
-Cadastro de turmas
-
-Cadastro de alunos
-
-Cadastro de professores
-
-Vínculo entre professores e turmas
-
-Funções de vínculo:
-
-Responsável
-
-Professor
-
-Auxiliar
-
-Inativação de registros sem exclusão física
-
-Preservação de histórico acadêmico
-
-RFID e monitoramento
-
-Recursos disponíveis
-
-Cadastro de tags RFID
-
-Associação de tag a aluno
-
-Cadastro de ambientes
-
-Cadastro de leitores RFID
-
-Associação de leitor a ambiente
-
-Registro de leituras RFID pela API
-
-Histórico de movimentações
-
-Identificação de situações de alerta
-
-Estados para tags, leitores e ambientes
-
-Utilização dos registros RFID pelo módulo de chamada
-
-Os registros RFID são armazenados como eventos independentes.
-
-A interpretação desses eventos para determinar presença ocorre no módulo de chamada, mantendo separados:
-
-Evento RFID bruto
-        ↓
-Registro no histórico
-        ↓
-Processamento da chamada
-        ↓
-Presente / Atrasado / Ausente
-
-Essa separação permite preservar o evento original mesmo quando a situação de presença sofre uma correção posterior.
-
-Ciclo de uma chamada
-
-O fluxo principal da versão 0.4.0 é:
-
-Aula Programada
-      ↓
-Gerar chamada
-      ↓
-Presenças criadas como Pendente
-      ↓
-Iniciar aula
-      ↓
-Aula Em andamento
-      ↓
-Processar registros RFID
-      ↓
-Presente / Atrasado
-      ↓
-Finalizar chamada
-      ↓
-Pendentes tornam-se Ausentes
-      ↓
-Aula Finalizada
-
-Uma aula ainda Programada também pode ser cancelada.
-
-Programada
-    ↓
-Cancelar aula
-    ↓
-Cancelada
-
-Aulas Finalizadas e Canceladas são estados terminais para as operações normais da chamada.
-
-Correções e auditoria
-
-Uma presença pode ser corrigida manualmente por usuários autorizados.
-
-Cada alteração gera um registro em ajuste_presenca contendo:
-
-presença alterada
-
-usuário responsável
-
-status anterior
-
-novo status
-
-motivo
-
-data e hora da alteração
-
-Exemplo:
-
-Ausente
-   ↓
-Correção manual
-   ↓
-Justificado
-
-O estado atual da presença é atualizado, mas o histórico da alteração permanece disponível para auditoria.
-
-Preservação de dados
-
-O Sentinela foi desenvolvido priorizando a preservação de registros históricos.
-
-Dados relevantes não devem ser apagados fisicamente durante a operação normal do sistema.
-
-São utilizados mecanismos como:
-
-status
-
-inativação
-
-cancelamento
-
-encerramento
-
-motivo da alteração
-
-data da alteração
-
-histórico de ajustes
-
-As principais chaves estrangeiras utilizam ON DELETE RESTRICT, reduzindo o risco de remoções acidentais destruírem dados relacionados.
-
-Tecnologias utilizadas
-
-Backend
-
-Python
-
-Flask
-
-MySQL
-
-mysql-connector-python
-
-python-dotenv
-
-Werkzeug Security
-
-Frontend
-
-HTML
-
-CSS
-
-JavaScript
-
-Bootstrap 5.3.3
-
-Projeto
-
-RFID
-
-API REST
-
-Controle de acesso baseado em perfil
-
-Sessões Flask
-
-Requisitos
-
-Python 3.11 ou superior
-
-MySQL
-
-Navegador moderno
-
-Git, opcional para versionamento
-
-Estrutura principal do projeto
-
-Sentinela/
-│
-├── app.py
-├── config.py
-├── database.py
-├── requirements.txt
-├── .env.example
-├── .gitignore
-├── README.md
-├── CHANGELOG.md
-├── RELEASE_NOTES_v0.4.0.md
-│
-├── database/
-│   ├── schema.sql
-│   ├── seed.sql
-│   │
-│   └── migrations/
-│       └── v0.4.0_chamada.sql
-│
-├── routes/
-│   ├── auth_routes.py
-│   ├── alunos_routes.py
-│   ├── professores_routes.py
-│   ├── academico_routes.py
-│   ├── ambientes_routes.py
-│   ├── leitores_routes.py
-│   ├── registros_routes.py
-│   ├── dashboard_routes.py
-│   ├── usuarios_routes.py
-│   ├── aulas_routes.py
-│   ├── chamadas_routes.py
-│   └── presencas_routes.py
-│
-├── scripts/
-│   └── criar_usuarios_iniciais.py
-│
-├── static/
-│   ├── css/
-│   ├── images/
-│   └── js/
-│
-└── templates/
-    ├── index.html
-    ├── home.html
-    ├── chamada.html
-    ├── mapa.html
-    ├── historico.html
-    ├── cadastro-alunos.html
-    ├── cadastro-professores.html
-    ├── gestao-academica.html
-    ├── gestao-ambientes.html
-    ├── gestao-leitores.html
-    ├── administracao.html
-    ├── gestao-usuarios.html
-    └── sobre.html
-
-Instalação
-
-1. Clone ou baixe o projeto
-
-Entre na pasta do projeto pelo terminal.
-
-2. Crie um ambiente virtual
-
-No Windows:
-
+```powershell
 python -m venv .venv
-
-Ative o ambiente:
-
-.venv\Scripts\activate
-
-Caso o PowerShell bloqueie a execução do script de ativação:
-
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-
-Depois:
-
-.venv\Scripts\activate
-
-3. Instale as dependências
-
-python -m pip install --upgrade pip
+.\.venv\Scripts\Activate.ps1
 python -m pip install -r requirements.txt
+```
 
-As principais dependências são:
+Se a política do PowerShell bloquear a ativação, execute somente para a sessão atual:
 
-flask
-mysql-connector-python
-python-dotenv
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+.\.venv\Scripts\Activate.ps1
+```
 
-4. Configure as variáveis de ambiente
+**macOS e Linux — Terminal (bash ou zsh):**
 
-Crie um arquivo:
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+```
 
-.env
+Em todos os sistemas, após a ativação do `.venv`, os comandos `python` e `python -m pip` utilizarão o ambiente virtual. Para desativá-lo mais tarde, execute `deactivate`.
 
-na raiz do projeto.
+### 2. Configurar as variáveis de ambiente
 
-Utilize .env.example como referência.
+Copie o arquivo de exemplo para `.env`:
 
-Exemplo:
+**Windows — PowerShell:**
 
-FLASK_SECRET_KEY=sua_chave_secreta
+```powershell
+Copy-Item .env.example .env
+```
+
+**macOS e Linux — Terminal:**
+
+```bash
+cp .env.example .env
+```
+
+Com o ambiente virtual ativo, gere uma chave secreta aleatória (igual nos três sistemas):
+
+```bash
+python -c "import secrets; print(secrets.token_hex(32))"
+```
+
+Abra `.env` no editor de sua preferência e cole o resultado em `FLASK_SECRET_KEY`. Ajuste também as variáveis:
+
+```dotenv
+FLASK_SECRET_KEY=cole_a_chave_gerada_aqui
+FLASK_HOST=127.0.0.1
+FLASK_PORT=5000
+FLASK_DEBUG=0
 
 MYSQL_HOST=localhost
 MYSQL_PORT=3306
 MYSQL_USER=root
-MYSQL_PASSWORD=sua_senha_mysql
+MYSQL_PASSWORD=sua_senha_local_do_mysql
 MYSQL_DATABASE=sentinela_db
+```
 
-O arquivo .env não deve ser publicado no repositório.
+As credenciais do exemplo são apenas orientativas. Para uso além de um ambiente local de desenvolvimento, prefira um usuário MySQL exclusivo para o Sentinela, com as permissões necessárias. **Nunca publique o `.env`.**
 
-5. Crie o banco de dados
+### 3. Preparar o banco de dados MySQL
 
-Para uma instalação nova da versão 0.4.0, execute:
+Para um **banco novo**, importe nesta ordem:
 
-database/schema.sql
+1. `database/schema.sql` — cria `sentinela_db` e suas tabelas.
+2. `database/seed.sql` — cadastra cursos de exemplo, sem criar alunos ou chamadas.
 
-O arquivo cria o banco:
+No MySQL Command Line Client ou no terminal, entre no cliente MySQL:
 
-sentinela_db
+```bash
+mysql -u root -p
+```
 
-e toda a estrutura necessária.
+Informe a senha configurada na instalação. Em instalações Linux com autenticação local por *socket*, pode ser necessário usar `sudo mysql` em vez do comando acima. No macOS, se a instalação inicial ainda não possuir senha para `root`, pode ser necessário utilizar `mysql -u root` e configurar uma senha antes de continuar.
 
-6. Execute os dados iniciais
+No prompt do MySQL (`mysql>`), execute:
 
-Depois do schema, execute:
+```sql
+SOURCE database/schema.sql;
+SOURCE database/seed.sql;
+```
 
-database/seed.sql
+**Atenção:** o comando `SOURCE` assume que o cliente MySQL foi iniciado na raiz do projeto. Se não encontrar os arquivos, informe o caminho absoluto ou utilize o MySQL Workbench para abrir e executar os scripts na mesma ordem.
 
-O seed adiciona os dados institucionais básicos necessários para iniciar o desenvolvimento.
+**Se você já tem o banco da v0.4.1, não execute o schema nem recrie o banco.** A v0.5.0 não requer migration SQL a partir da v0.4.1. O arquivo `database/migrations/v0.4.0_chamada.sql` é legado, voltado a bancos de versões anteriores; faça backup e confira a versão de origem antes de usá-lo.
 
-Dados de testes acadêmicos, alunos, turmas, aulas e registros RFID não são adicionados automaticamente.
+### 4. Criar o usuário administrador inicial
 
-7. Crie os usuários iniciais
+No `.env`, configure uma senha forte, única, com pelo menos 12 caracteres:
 
-Na raiz do projeto:
+```dotenv
+SENTINELA_ADMIN_PASSWORD=substitua_por_uma_senha_forte_e_unica
+```
 
+Com o ambiente virtual ativo, execute **em qualquer um dos três sistemas operacionais**:
+
+```bash
 python scripts/criar_usuarios_iniciais.py
+```
 
-O script cria ou atualiza os usuários de desenvolvimento e estabelece o vínculo necessário para o usuário com perfil Professor.
+O script cria somente os perfis cujas variáveis `SENTINELA_*_PASSWORD` estejam configuradas, não imprime as senhas e **não redefine credenciais de usuários existentes**. Consulte `.env.example` para os perfis opcionais. Contas do perfil Professor devem ser vinculadas posteriormente ao cadastro acadêmico e às turmas autorizadas.
 
-As credenciais utilizadas pelo ambiente de desenvolvimento são exibidas pelo próprio script.
+### 5. Iniciar o servidor
 
-As credenciais padrão são destinadas apenas ao desenvolvimento e devem ser alteradas antes do uso do sistema em um ambiente real.
+Com o ambiente virtual ativo:
 
-8. Execute a aplicação
-
+```bash
 python app.py
+```
 
-O Flask iniciará o servidor de desenvolvimento.
+Abra no navegador: **http://127.0.0.1:5000**. Depois de autenticar, acesse `/chamada` ou `/relatorios`.
 
-Abra no navegador:
+Se o servidor não conseguir iniciar, confirme se o MySQL está em execução, se o banco foi criado, se as credenciais em `.env` estão corretas e se a porta 5000 está livre.
 
-http://127.0.0.1:5000
+### Acesso pela rede para testes com ESP32
 
-Atualização da v0.2.0 para a v0.4.0
+Por padrão, o servidor inicia em `127.0.0.1`, sem depuração. Para permitir conexões de um ESP32 na mesma rede local, configure no `.env`:
 
-Para bancos já existentes da versão 0.2.0, não utilize o schema.sql para tentar atualizar as tabelas existentes.
+```dotenv
+FLASK_HOST=0.0.0.0
+FLASK_PORT=5000
+FLASK_DEBUG=0
+```
 
-Utilize a migration:
+Defina no firmware `arduino/sentinela_rfid/sentinela_rfid.ino` o SSID, a senha Wi-Fi, o endereço **LAN** do computador com Flask e o código do leitor cadastrado. A rede precisa permitir acesso à porta 5000 e estar protegida. **Não exponha o servidor de desenvolvimento, o depurador do Flask ou o endpoint HTTP do leitor à Internet.** A integração utiliza HTTP sem proteção de transporte e foi concebida para testes em ambiente controlado.
 
-database/migrations/v0.4.0_chamada.sql
+## Relatórios e regras de frequência
 
-Ela adiciona a estrutura necessária para a versão 0.4.0, incluindo:
+Na página `/relatorios`, os filtros aceitam datas no formato ISO (`AAAA-MM-DD`); o período deve ser válido e não pode ultrapassar 367 dias corridos.
 
-vínculo entre usuário e professor
+- A contagem usa apenas aulas `Finalizada`.
+- Status tratados: `Presente`, `Atrasado`, `Ausente`, `Justificado` e `Pendente`.
+- A frequência é `(Presentes + Atrasados) / registros × 100`, **somente quando a cobertura das aulas finalizadas está completa**.
+- `Justificado` integra o denominador, sem equivaler automaticamente a presença.
+- Presenças `Pendente` em aulas finalizadas bloqueiam a emissão até regularização.
+- Correções manuais realizadas depois da chamada são refletidas em novas consultas.
+- Usuários com perfil Professor precisam de vínculo ativo `Professor` ou `Auxiliar` com a turma; outros perfis usam as políticas de acesso configuradas no sistema.
 
-função Professor/Auxiliar
+**Endpoints principais dos relatórios** (exigem sessão válida e autorização):
 
-tabela de aulas
+```text
+GET /api/relatorios/turmas
+GET /api/relatorios/turmas/<id_turma>/frequencia?inicio=AAAA-MM-DD&fim=AAAA-MM-DD
+GET /api/relatorios/turmas/<id_turma>/frequencia.pdf?inicio=AAAA-MM-DD&fim=AAAA-MM-DD
+GET /api/relatorios/turmas/<id_turma>/alunos
+GET /api/relatorios/turmas/<id_turma>/alunos/<id_aluno>/frequencia?inicio=AAAA-MM-DD&fim=AAAA-MM-DD
+GET /api/relatorios/turmas/<id_turma>/alunos/<id_aluno>/frequencia.pdf?inicio=AAAA-MM-DD&fim=AAAA-MM-DD
+```
 
-tabela de presenças
+Nos endpoints `.pdf`, utilize `&download=1` para solicitar o arquivo como anexo.
 
-tabela de auditoria de correções
+## Testes
 
-Antes de aplicar migrations em um banco com dados importantes, recomenda-se realizar backup.
+Com o ambiente virtual ativado no Windows, macOS ou Linux:
 
-Principais entidades do banco
+```bash
+python -m unittest discover -s tests -v
+```
 
-curso
-  ↓
-turma
-  ├── aluno
-  │    └── tag_rfid
-  │
-  └── professor_turma
-         ↑
-     professor
-         ↑
-       usuario
+A suíte atual possui **22 testes automatizados**, focados no módulo de relatórios e realizados com banco simulado. Ela não substitui a validação com MySQL real, as regras de outros módulos nem os testes físicos do ESP32. Os comandos de instalação para macOS e Linux devem ser confirmados no ambiente específico; o projeto ainda é experimental.
 
-ambiente
-   ↓
-leitor_rfid
-   ↓
-registro_rfid
+## Organização
 
-turma + professor + ambiente
-             ↓
-            aula
-             ↓
-          presenca
-             ↓
-      ajuste_presenca
+```text
+Sentinela/
+├── app.py, config.py, database.py, requirements.txt
+├── .env.example
+├── arduino/sentinela_rfid/sentinela_rfid.ino
+├── database/schema.sql, database/seed.sql, database/migrations/
+├── routes/relatorios_routes.py   # outros blueprints em routes/
+├── scripts/criar_usuarios_iniciais.py
+├── static/css/, static/js/, static/images/
+├── templates/relatorios.html     # demais páginas em templates/
+├── tests/test_relatorios.py
+├── tests/test_relatorio_individual.py
+├── CHANGELOG.md
+└── RELEASE_NOTES_v0.5.0.md
+```
 
-Endpoints principais da v0.4.0
+## Segurança, privacidade e uso acadêmico
 
-Aulas
+- Não versione `.env`, senhas, backups de produção, bancos com dados pessoais nem ambientes virtuais.
+- O script de usuários iniciais aceita senhas configuradas localmente; proteja essas variáveis e troque credenciais comprometidas.
+- Os relatórios podem conter **dados pessoais de estudantes**; restrinja acesso, armazenamento, compartilhamento e impressão de acordo com a política da instituição e legislação aplicável.
+- A aplicação utiliza o servidor de desenvolvimento Flask e comunicação HTTP no protótipo de IoT. São necessárias melhorias de implantação, autenticação do dispositivo e segurança de transporte para operação real.
 
-GET    /api/aulas
-GET    /api/aulas/<id>
-POST   /api/aulas
-PUT    /api/aulas/<id>
-PATCH  /api/aulas/<id>/iniciar
-PATCH  /api/aulas/<id>/cancelar
-
-A finalização da aula deve ocorrer pelo módulo de chamada.
-
-Chamadas
-
-GET   /api/chamadas/<id_aula>
-POST  /api/chamadas/<id_aula>/gerar
-POST  /api/chamadas/<id_aula>/processar
-POST  /api/chamadas/<id_aula>/finalizar
-
-Presenças
-
-PATCH /api/presencas/<id_presenca>/corrigir
-GET   /api/presencas/<id_presenca>/ajustes
-
-Estado da integração RFID
-
-A versão 0.4.0 adiciona a integração física entre os leitores RFID e o backend do Sentinela.
-
-O software do leitor ESP32 realiza a leitura da tag, identifica o leitor, envia a leitura por HTTP para o backend e interpreta a resposta para controlar os indicadores físicos.
-
-Portanto:
-
-Cadastro de tags                     ✅
-Cadastro de leitores                 ✅
-Cadastro de ambientes                ✅
-Registro RFID pela API               ✅
-Histórico de eventos                 ✅
-Processamento automático da chamada  ✅
-Firmware dos leitores ESP32          ✅
-Comunicação Wi-Fi com o backend     ✅
-Envio de tag + leitor por HTTP      ✅
-Indicação por LED e buzzer          ✅
-Testes físicos em outra máquina      ⏳
-
-A integração está incluída no código publicado. A validação final depende da execução do backend e dos leitores em um segundo ambiente de testes.
-
-Histórico das versões
-
-v0.1.x
-
-Base funcional do Sentinela:
-
-estrutura acadêmica
-
-cadastro de alunos
-
-cadastro de professores
-
-tags RFID
-
-leitores
-
-ambientes
-
-registros RFID
-
-histórico de movimentações
-
-v0.2.0
-
-Autenticação e controle de acesso:
-
-usuários
-
-login
-
-hash de senha
-
-sessões Flask
-
-perfis
-
-permissões
-
-proteção de páginas e APIs
-
-gestão de usuários
-
-v0.3.0
-
-Chamada e presença escolar:
-
-aulas
-
-conflitos de horário
-
-chamada
-
-processamento RFID
-
-presença automática
-
-atraso
-
-ausência automática
-
-cancelamento
-
-correções manuais
-
-auditoria
-
-vínculo entre usuário e professor
-
-acesso de Professor e Auxiliar por turma
-
-Roadmap
-
-v0.4.0 — Integração RFID
-
-Integração física dos leitores RFID:
-
-firmware para ESP32
-
-leitura de tags com MFRC522
-
-comunicação Wi-Fi
-
-envio HTTP/JSON para o backend
-
-identificação individual dos leitores
-
-tratamento de respostas do servidor
-
-indicação de resultado por LED e buzzer
-
-preparação para testes em ambiente controlado
-
-v0.5.0 — Relatórios
-
-Planejado:
-
-relatórios de presença
-
-relatórios de movimentação
-
-filtros avançados
-
-exportação de informações
-
-indicadores acadêmicos
-
-v1.0.0 — Versão final
-
-Objetivo:
-
-consolidação dos módulos
-
-integração completa
-
-revisão de segurança
-
-documentação final
-
-testes finais
-
-preparação para apresentação do TCC
-
-Observações
-
-O Sentinela encontra-se em desenvolvimento.
-
-A versão 0.4.0 representa uma etapa funcional do projeto, incluindo a integração entre software e hardware RFID, mas não deve ser considerada uma solução pronta para produção.
-
-Relatórios avançados, testes ampliados e outras funcionalidades continuam previstas para versões posteriores.
-
-Projeto acadêmico
-
-Projeto desenvolvido como Trabalho de Conclusão de Curso na área de Desenvolvimento de Sistemas.
+O Sentinela é um **projeto acadêmico de TCC**, ainda em desenvolvimento. O dashboard gráfico interativo não integra o escopo da v0.5.0 e poderá ser avaliado em uma etapa posterior.
